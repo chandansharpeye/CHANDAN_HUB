@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2b3a8f">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Chandan Hub">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<title>Chandan Hub: Study Smarter. Build Skills.</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+:root{--bg:#f4f7fb;--ink:#14182b;--mute:#555d7a;--brand:#2b3a8f;--sun:#f2a900;--teal:#0f8b8d;--panel:#fff;--line:#d8deec;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10142a;--ink:#eef1fb;--mute:#a4abc8;--brand:#8e9cff;--panel:#1a2040;--line:#2c3563}}
+:root[data-theme="dark"]{--bg:#10142a;--ink:#eef1fb;--mute:#a4abc8;--brand:#8e9cff;--panel:#1a2040;--line:#2c3563}
+*,*:before,*:after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 "Source Sans 3",system-ui,sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque","Trebuchet MS",sans-serif;line-height:1.1;margin:0}
+a{color:var(--brand)}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:16px 0;gap:12px;flex-wrap:wrap}
+.logo{font:800 22px "Bricolage Grotesque",sans-serif;text-decoration:none;color:var(--ink)}
+.logo span{color:var(--sun)}
+nav div{display:flex;flex-wrap:wrap;gap:6px 14px;font-weight:600;font-size:15px}
+nav a{text-decoration:none;color:var(--mute)}
+nav a:hover{color:var(--brand)}
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:32px;align-items:center;padding:32px 0 56px}
+.hero h1{font-size:clamp(36px,6vw,60px);font-weight:800;letter-spacing:-.02em}
+.hero p{color:var(--mute);max-width:46ch;margin:16px 0 0}
+.timer{background:var(--brand);color:#fff;border-radius:28px 28px 28px 6px;padding:28px;text-align:center}
+.timer h2{font-size:18px;font-weight:600;opacity:.85}
+.clock{font:800 clamp(56px,12vw,84px) "Bricolage Grotesque",sans-serif;font-variant-numeric:tabular-nums;margin:8px 0 4px}
+.modes,.ctrl{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+button{font:600 16px "Source Sans 3",sans-serif;border:0;border-radius:999px;padding:10px 20px;cursor:pointer;background:var(--sun);color:#14182b}
+button.alt{background:rgba(255,255,255,.18);color:#fff}
+button.alt[aria-pressed="true"]{background:#fff;color:var(--brand)}
+.timer small{display:block;margin-top:14px;opacity:.85}
+section{padding:48px 0;border-top:1px solid var(--line)}
+section>.wrap>h2{font-size:clamp(28px,4.5vw,40px);margin-bottom:8px}
+.lead{color:var(--mute);margin:0 0 24px;max-width:56ch}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.tabs button{background:transparent;border:2px solid var(--line);color:var(--ink)}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tip{background:var(--panel);border-left:6px solid var(--teal);padding:20px 24px;border-radius:4px 20px 20px 4px}
+.tip h3{font-size:22px;margin-bottom:8px}
+.tip ul{margin:0;padding-left:20px}
+.tip li{margin:6px 0}
+.skills{display:grid;grid-template-columns:1fr 1.3fr;gap:32px}
+.add{display:flex;gap:8px;margin-bottom:16px}
+input{flex:1;min-width:0;font:inherit;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink)}
+.sk{background:var(--panel);padding:14px 18px;border-radius:16px;margin-bottom:10px}
+.sk div{display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:600}
+.bar{height:10px;background:var(--line);border-radius:99px;margin-top:8px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--teal);border-radius:99px;transition:width .3s}
+.sk button{padding:4px 12px;font-size:14px}
+.sk .x{background:transparent;color:var(--mute)}
+.ideas{list-style:none;padding:0;margin:0}
+.ideas li{padding:12px 0;border-bottom:1px dashed var(--line)}
+.ideas b{color:var(--brand)}
+.boost{background:var(--sun);color:#14182b;border-radius:28px;padding:32px;text-align:center}
+.boost p{font:600 clamp(22px,4vw,32px)/1.25 "Bricolage Grotesque",sans-serif;margin:0 0 16px}
+.boost button{background:#14182b;color:#fff}
+.wa{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));background:#25d366;color:#062b16;font-weight:600;text-decoration:none;padding:12px 20px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.25);z-index:9}
+.wa:hover{color:#062b16;filter:brightness(1.08)}
+footer{padding:32px 0;color:var(--mute);text-align:center;border-top:1px solid var(--line)}
+.m5{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.m5 label{display:flex;align-items:center;gap:12px;background:var(--panel);padding:12px 16px;border-radius:14px;font:600 20px "Bricolage Grotesque",sans-serif;cursor:pointer}
+.m5 input{flex:none;width:22px;height:22px;accent-color:var(--teal)}
+.m5 input:checked+span{text-decoration:line-through;opacity:.6}
+.m5+.boost{margin-top:32px}
+#fq{width:100%}
+.ob{background:var(--bg);padding:12px 14px;border-radius:12px;white-space:pre-wrap;font-weight:600}
+.flist{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin-top:16px}
+.f{background:var(--panel);padding:12px 16px;border-radius:14px 14px 14px 4px;display:flex;flex-direction:column;gap:4px}
+.f b{font-family:"Bricolage Grotesque",sans-serif;color:var(--brand)}
+.f code{font:600 14px/1.4 ui-monospace,Consolas,monospace;word-break:break-word}
+.f small{color:var(--mute)}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.calc{background:var(--panel);padding:24px;border-radius:24px 24px 24px 6px;display:flex;flex-direction:column;gap:12px}
+.calc label{display:flex;flex-direction:column;gap:4px;font-weight:600}
+select{font:inherit;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink)}
+.out div{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px dashed var(--line)}
+.out div:last-child{font-size:20px;color:var(--teal)}
+.pr{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.pr input{flex:none;width:96px}
+.pr b{color:var(--teal);font-size:20px}
+@media(max-width:720px){.hero,.skills,.cg{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bar i{transition:none}}
+.cd{background:var(--panel);padding:24px;border-radius:24px 24px 24px 6px;display:flex;flex-direction:column;gap:12px;margin-top:24px}
+.cg .cd{margin-top:0}
+.cd h3{font-size:22px}.cd p{margin:0;color:var(--mute)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{padding:4px 12px;font-size:14px;background:transparent;border:2px solid var(--line);color:var(--ink)}
+.chips button[aria-pressed="true"]{background:var(--teal);border-color:var(--teal);color:#fff}
+textarea{font:inherit;padding:10px 14px;border:2px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);min-height:96px;resize:vertical}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.row a,a.btn{font:600 16px "Source Sans 3",sans-serif;background:var(--sun);color:#14182b;border-radius:999px;padding:10px 20px;text-decoration:none}
+.pgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.pgs div{display:flex;flex-direction:column;gap:6px;font-size:14px}
+.pgs img{width:100%;border:1px solid var(--line);border-radius:8px}
+#hc{max-width:100%;height:auto;border:1px solid var(--line);border-radius:8px;display:none}
+.ttw{overflow-x:auto}
+.tt{border-collapse:collapse;min-width:760px;width:100%}
+.tt th{font:800 15px "Bricolage Grotesque",sans-serif;padding:6px;text-align:left}
+.tt td{padding:3px}
+.tt input{width:100%;padding:6px 8px;font-size:15px;border-radius:8px}
+.tt td:first-child input{font-weight:600;min-width:96px}
+@media print{body.pt>*{display:none!important}body.pt>#timetable{display:block!important;border:0}.noprint{display:none!important}.tt input{border:1px solid #999;background:#fff;color:#000}}
+.stars{display:flex;gap:6px}
+.stars button{font-size:26px;line-height:1;padding:4px 8px;background:transparent;color:var(--mute);border:2px solid var(--line)}
+.stars button[aria-pressed="true"]{color:#14182b;background:var(--sun);border-color:var(--sun)}
+.tk{overflow:hidden;white-space:nowrap;padding:9px 0;font:600 15px "Source Sans 3",sans-serif}
+.tk.a{background:var(--teal);color:#fff}
+.tk div{display:inline-flex;animation:tks 38s linear infinite;will-change:transform}
+.tk:hover div{animation-play-state:paused}
+.tk span{padding-right:3em}
+@keyframes tks{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.tk{overflow-x:auto}.tk div{animation:none}.tk div span[aria-hidden]{display:none}}
+/* Chandan Student System + Career Roadmap */
+.cg>*{min-width:0}
+input[type=file]{max-width:100%}
+.cxw h3.cxh{font:800 clamp(24px,4vw,32px)/1.15 "Bricolage Grotesque",sans-serif;margin:56px 0 8px;scroll-margin-top:12px}
+.cxw h4{font:800 17px "Bricolage Grotesque",sans-serif;margin:18px 0 8px;color:var(--brand)}
+.cxn{display:flex;flex-wrap:wrap;gap:6px}
+.cxn a{font-size:14px;font-weight:600;padding:4px 12px;border:2px solid var(--line);border-radius:999px;text-decoration:none;color:var(--ink)}
+.cxg{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.cc{background:var(--panel);border:2px solid var(--line);border-radius:20px 20px 20px 6px;padding:18px;display:flex;flex-direction:column;gap:8px;transition:opacity .2s,border-color .2s}
+button.cc{font:inherit;color:var(--ink);text-align:left;cursor:pointer;width:100%}
+.cc>b{font:800 20px "Bricolage Grotesque",sans-serif}
+.cc .sh b{font:800 20px "Bricolage Grotesque",sans-serif}
+.cc>span{color:var(--mute)}
+.cc small{color:var(--mute);font-size:15px}
+button.cc[aria-pressed="true"]{border-color:var(--teal);box-shadow:inset 0 0 0 2px var(--teal)}
+.cc.dim{opacity:.45}
+.cc.rec{border-color:var(--teal)}
+.cc .chips{margin-top:4px}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:12px 0}
+.flow .pl{color:var(--ink);background:var(--panel)}
+.flow i{font-style:normal;color:var(--mute)}
+.qs{background:var(--panel);padding:20px;border-radius:20px 20px 20px 6px;display:grid;gap:18px;margin-bottom:12px}
+.qs fieldset{border:0;margin:0;padding:0;min-width:0}
+.qs legend{font:800 17px "Bricolage Grotesque",sans-serif;margin-bottom:8px;padding:0;color:var(--brand)}
+.qo{display:flex;flex-wrap:wrap;gap:8px}
+.opt{position:relative;cursor:pointer}
+.opt input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;padding:0;cursor:pointer}
+.opt span{display:inline-block;font-weight:600;font-size:15px;padding:6px 14px;border:2px solid var(--line);border-radius:999px;color:var(--ink);background:var(--bg)}
+.opt input:checked+span{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.opt input:focus-visible+span{outline:3px solid var(--sun);outline-offset:2px}
+.cell{background:var(--bg);border-radius:12px;padding:10px 12px}
+.cell small{display:block;font-weight:800;color:var(--teal)}
+.cell p{margin:4px 0 0}
+.rm li b{display:block}
+.sf input[type=range]{padding:0;accent-color:var(--teal)}
+.boost .bs{font:400 17px/1.5 "Source Sans 3",sans-serif;max-width:60ch;margin:0 auto}
+.badge{display:inline-block;background:var(--sun);color:#14182b;font:800 12px "Bricolage Grotesque",sans-serif;padding:3px 10px;border-radius:99px;letter-spacing:.05em;vertical-align:middle;margin-left:8px}
+.brandbox{background:var(--panel);border-left:6px solid var(--sun);padding:18px 22px;border-radius:4px 20px 20px 4px;margin:0 0 24px;font-size:18px}
+.brandbox span{display:block;margin-top:6px;font-size:16px;color:var(--mute)}
+.sf{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;background:var(--panel);padding:20px;border-radius:20px 20px 20px 6px;margin-bottom:16px}
+.sf label,.sys .row label{display:flex;flex-direction:column;gap:4px;font-weight:600}
+.sf .full{grid-column:1/-1}
+.sf input,.sf select,.sf textarea{background:var(--bg)}
+.sf textarea{width:100%;min-height:72px}
+.sf .chk{flex-direction:row;align-items:center;gap:10px}
+.sf .chk input{flex:none;width:22px;height:22px;accent-color:var(--teal)}
+.sys .ob{margin:0 0 16px}
+.sc{background:var(--panel);padding:16px 18px;border-radius:16px;margin-bottom:12px}
+.sc.weak{border-left:6px solid #e8590c}
+.sc .row{margin-top:8px}
+.sh{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.sh b{font:800 18px "Bricolage Grotesque",sans-serif;margin-right:4px}
+.st{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px}
+.pl{display:inline-block;font-size:13px;font-weight:600;padding:4px 10px;border-radius:99px;border:2px solid var(--line);color:var(--mute)}
+.pl.done{background:var(--teal);border-color:var(--teal);color:#fff}
+.pl.due{background:var(--sun);border-color:var(--sun);color:#14182b}
+.pl.late{background:#c92a2a;border-color:#c92a2a;color:#fff}
+.pl.wk{background:#e8590c;border-color:#e8590c;color:#fff}
+button.sm{padding:6px 14px;font-size:14px}
+button.ghost{background:transparent;border:2px solid var(--line);color:var(--ink)}
+.pg{margin:6px 0 0;color:var(--mute);font-weight:600}
+.tl{font:800 14px "Bricolage Grotesque",sans-serif;text-transform:uppercase;letter-spacing:.05em;color:var(--teal);margin:14px 0 2px}
+.gt{display:flex;gap:10px;align-items:flex-start;padding:8px 0;cursor:pointer;border-bottom:1px dashed var(--line)}
+.gt:last-child{border-bottom:0}
+.gt input{flex:none;width:22px;height:22px;accent-color:var(--teal);margin-top:2px}
+.gt small{display:block;color:var(--mute)}
+.gt input:checked+span{opacity:.6;text-decoration:line-through}
+.sc details summary{cursor:pointer;font-weight:600;color:var(--brand);margin-top:12px}
+.qt{margin:10px 0;white-space:pre-wrap}
+.big{font:600 clamp(20px,3.6vw,26px)/1.3 "Bricolage Grotesque",sans-serif;white-space:pre-wrap;margin:12px 0}
+.rm{list-style:none;counter-reset:s;padding:0;margin:0}
+.rm li{counter-increment:s;position:relative;padding:2px 0 14px 42px}
+.rm li:before{content:counter(s);position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;background:var(--sun);color:#14182b;font:800 15px "Bricolage Grotesque",sans-serif;display:flex;align-items:center;justify-content:center}
+#ai_cp.ghost{padding:10px 20px;font-size:16px}
+.note{font-size:15px;color:var(--mute);margin:16px 0 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><a class="logo" href="#top">Chandan<span>Hub</span></a>
+<div><a href="#top">Home</a><a href="#system">Student System</a><a href="#study">Study</a><a href="#strategy">90% Plan</a><a href="#commerce">Commerce</a><a href="#career">Career Explore</a><a href="#formulas">Formulas</a><a href="#calc">Calculators</a><a href="#skills">Skills</a><a href="#assistant">AI Helper</a><a href="#aitools">AI Tools</a><a href="#tools">Tools</a><a href="#timetable">Timetable</a><a href="#boost">Daily Boost</a><a href="#feedback">Feedback</a></div></nav>
+<div class="tk a" role="marquee" aria-label="📢 CHANDAN HUB • Study Smarter • Build Skills • Commerce • AI Tools • Calculators • Keep Learning 🚀"><div><span>📢 CHANDAN HUB • Study Smarter • Build Skills • Commerce • AI Tools • Calculators • Keep Learning 🚀</span><span aria-hidden="true">📢 CHANDAN HUB • Study Smarter • Build Skills • Commerce • AI Tools • Calculators • Keep Learning 🚀</span><span aria-hidden="true">📢 CHANDAN HUB • Study Smarter • Build Skills • Commerce • AI Tools • Calculators • Keep Learning 🚀</span><span aria-hidden="true">📢 CHANDAN HUB • Study Smarter • Build Skills • Commerce • AI Tools • Calculators • Keep Learning 🚀</span></div></div>
+<header class="hero" id="top">
+<div><h1>Study Smarter. Build Skills. Become Future Ready.</h1>
+<p>A free digital hub for students to study, practice, calculate and build useful skills.</p>
+<div class="row" style="margin-top:20px"><a class="btn" href="#system">Try Chandan Student System</a><a class="btn" href="#career" style="background:transparent;border:2px solid var(--line);color:var(--ink)">Career Explore</a></div></div>
+<div class="timer" aria-label="Focus timer">
+<h2>Start a focus session</h2>
+<div class="clock" id="clock" role="timer" aria-live="off">25:00</div>
+<div class="modes" role="group" aria-label="Session length">
+<button class="alt" data-m="25" aria-pressed="true">25 min focus</button>
+<button class="alt" data-m="5" aria-pressed="false">5 min break</button>
+<button class="alt" data-m="50" aria-pressed="false">50 min deep work</button></div>
+<div class="ctrl"><button id="go">Start</button><button class="alt" id="rs">Reset</button></div>
+<small id="done">Sessions finished today: 0</small></div>
+</header>
+</div>
+
+<section id="system" class="sys"><div class="wrap">
+<h2>Chandan Student System <span class="badge">NEW</span></h2>
+<div class="brandbox"><b>A simple system I designed to help students study smarter, track mistakes, and stay consistent.</b><span>Three tools, one routine: revise at the right time, break your goal into daily tasks, and learn from every mistake. Your data is saved on this device.</span></div>
+<datalist id="subjl"><option value="Accountancy"><option value="Business Studies"><option value="Economics"><option value="Maths"><option value="English"></datalist>
+<div class="tabs" role="tablist" id="stabs">
+<button type="button" role="tab" aria-selected="true" data-p="p-rev">📖 Smart Revision</button>
+<button type="button" role="tab" aria-selected="false" data-p="p-goal">🎯 Study Goal → Daily Plan</button>
+<button type="button" role="tab" aria-selected="false" data-p="p-mis">📝 Mistake Book</button></div>
+
+<div id="p-rev" role="tabpanel">
+<p class="lead">Add a topic after you learn it. The system suggests dates for 1st Revision, 2nd Revision and Final Revision. Mark a topic as weak and it comes back sooner.</p>
+<div class="sf">
+<label>Subject<input id="rv_sub" list="subjl" maxlength="30" placeholder="e.g. Accountancy"></label>
+<label>Topic you learned<input id="rv_top" maxlength="80" placeholder="e.g. Depreciation"></label>
+<label>Date learned<input id="rv_date" type="date"></label>
+<label class="chk"><input id="rv_weak" type="checkbox"> This topic feels weak</label>
+<div class="full"><button type="button" id="rv_add">Add topic</button></div></div>
+<div class="ob" id="rv_sum"></div>
+<div id="rv_list"></div>
+<p class="note">Normal topics: 1st revision after 1 day, 2nd after 6 more days, final after 14 more days. Weak topics: 1, 3 and 7 days.</p>
+</div>
+
+<div id="p-goal" role="tabpanel" hidden>
+<p class="lead">Write your goal and how many days you have. The system splits it into small daily tasks and shows your progress.</p>
+<div class="sf">
+<label class="full">Your goal<input id="gl_name" maxlength="80" placeholder="e.g. Accountancy Chapter 3"></label>
+<label>Finish in (days)<input id="gl_days" type="number" min="1" max="60" value="5" inputmode="numeric"></label>
+<div style="align-self:end"><button type="button" id="gl_add">Make my daily plan</button></div></div>
+<div id="gl_list"></div>
+</div>
+
+<div id="p-mis" role="tabpanel" hidden>
+<p class="lead">Save the questions you got wrong, with the reason. Later, tap Revise My Mistakes to practise only those.</p>
+<div class="sf">
+<label>Subject<input id="ms_sub" list="subjl" maxlength="30" placeholder="e.g. Economics"></label>
+<label>Topic<input id="ms_top" maxlength="80" placeholder="e.g. Elasticity of demand"></label>
+<label class="full">Question or what went wrong<textarea id="ms_q" maxlength="500" placeholder="Write the question you got wrong"></textarea></label>
+<label class="full">Correct answer or right method<textarea id="ms_a" maxlength="500" placeholder="Write the correct answer so you can check yourself later"></textarea></label>
+<label>Mistake reason<select id="ms_why"></select></label>
+<div class="full"><button type="button" id="ms_add">Save mistake</button></div></div>
+<div class="ob" id="ms_stat"></div>
+<div id="ms_ctl"><div class="row" style="margin-bottom:12px">
+<button type="button" id="ms_rev">Revise My Mistakes</button>
+<label>Subject<select id="ms_fs"></select></label>
+<label>Reason<select id="ms_fr"></select></label></div></div>
+<div id="ms_mode" hidden></div>
+<div id="ms_list"></div>
+</div>
+</div></section>
+
+<section id="study"><div class="wrap">
+<h2>Study Methods</h2>
+<p class="lead">Choose a subject and get practical methods you can use today.</p>
+<div class="tabs" role="tablist" id="tabs"></div>
+<div class="tip" id="tip" role="tabpanel"></div>
+</div></section>
+
+<section id="strategy"><div class="wrap">
+<h2>90%+ Exam Strategy</h2>
+<p class="lead">No plan can promise marks, but these habits stack the odds in your favour. Follow them in this order.</p>
+<div class="calc" style="max-width:520px;margin-bottom:24px"><h3>My exam countdown</h3>
+<label>Exam date<input id="ed" type="date"></label>
+<div class="ob" id="eo">Pick your exam date to see what to focus on today.</div></div>
+<div class="flist">
+<div class="f"><b>Know the paper</b><span>Study the syllabus, marking scheme and weightage first. Spend most time on high-weightage chapters.</span></div>
+<div class="f"><b>Textbook first</b><span>Finish the main textbook and its exercises before any guide or extra material.</span></div>
+<div class="f"><b>Active recall</b><span>Close the book and write or say what you remember. Re-reading feels easy but teaches less.</span></div>
+<div class="f"><b>Spaced revision</b><span>Revise on day 1, 3, 7 and 21. Short and frequent beats one long cram.</span></div>
+<div class="f"><b>Past papers</b><span>Solve the last 5 to 10 years' papers in exam time. Check with the marking scheme, not just the answer.</span></div>
+<div class="f"><b>Error notebook</b><span>Write each mistake with the correct method. Redo it after 3 days until it never repeats.</span></div>
+<div class="f"><b>Write for marks</b><span>Use headings, key terms, steps and neat diagrams. Marks are given for steps, not only the final answer.</span></div>
+<div class="f"><b>Exam day</b><span>Use the first 10 minutes to read and plan. Start with your strongest questions, watch time per mark, and keep 10 minutes to check.</span></div>
+<div class="f"><b>Body and mind</b><span>Sleep 7 hours, eat on time and take a short walk. A rested brain remembers more.</span></div>
+</div>
+</div></section>
+
+<section id="commerce"><div class="wrap">
+<h2>Commerce Corner</h2>
+<p class="lead">Key ideas from Accountancy, Business Studies and Economics at a glance.</p>
+<div class="cg">
+<div class="tip"><h3>Golden rules of accounting</h3><ul>
+<li><b>Personal:</b> debit the receiver, credit the giver.</li>
+<li><b>Real:</b> debit what comes in, credit what goes out.</li>
+<li><b>Nominal:</b> debit expenses and losses, credit incomes and gains.</li></ul></div>
+<div class="tip"><h3>Three subjects, three questions</h3><ul>
+<li><b>Accountancy:</b> how do we record money?</li>
+<li><b>Business Studies:</b> how is a business run?</li>
+<li><b>Economics:</b> how do choices shape markets?</li></ul></div>
+</div></div></section>
+
+<section id="career" class="sys"><div class="wrap cxw">
+<h2>🎯 Career Explore</h2>
+<div class="brandbox"><b>Find Your Direction. Build Your Future.</b><span>Explore different career paths, understand what each career involves, discover the skills you need, and create a clear roadmap for your future.</span></div>
+<div class="cxn"><a href="#cx-stream">Streams</a><a href="#cx-areas">Career areas</a><a href="#cx-road">Roadmap</a><a href="#cx-compare">Compare</a><a href="#cx-quiz">Which career?</a><a href="#cx-skills">Skills</a><a href="#cx-plan">My plan</a></div>
+
+<h3 class="cxh" id="cx-stream">🔍 Explore by Stream</h3>
+<div class="cxg" id="cx_streams">
+<button type="button" class="cc" data-s="Commerce" aria-pressed="false"><b>Commerce</b><span>Explore careers related to finance, accounting, business, banking, management and economics.</span></button>
+<button type="button" class="cc" data-s="Science" aria-pressed="false"><b>Science</b><span>Explore careers related to technology, engineering, medicine, research and science.</span></button>
+<button type="button" class="cc" data-s="Arts &amp; Humanities" aria-pressed="false"><b>Arts &amp; Humanities</b><span>Explore careers related to law, education, psychology, media, design, civil services and humanities.</span></button>
+</div>
+<p class="note" id="cx_shint">Tap a stream to highlight the career areas below that are common starting points. Most careers are open to students from any stream.</p>
+
+<h3 class="cxh" id="cx-areas">💼 Explore Career Areas</h3>
+<div class="cxg" id="cx_areas">
+<div class="cc" data-a="fin"><div class="sh"><b>💰 Finance &amp; Accounting</b><span class="pl done" hidden>Common starting point</span></div><span>Learn about careers in accounting, finance, taxation, auditing and financial management.</span><small><b>Useful skills:</b> Accountancy, Excel, Tally, financial analysis, communication.</small><div class="chips"></div></div>
+<div class="cc" data-a="bank"><div class="sh"><b>🏦 Banking &amp; Finance</b><span class="pl done" hidden>Common starting point</span></div><span>Explore careers in banking, financial services and related sectors.</span><small><b>Useful skills:</b> Mathematics, finance, communication, analytical thinking.</small><div class="chips"></div></div>
+<div class="cc" data-a="biz"><div class="sh"><b>📊 Business &amp; Management</b><span class="pl done" hidden>Common starting point</span></div><span>Explore careers in business, management, marketing, entrepreneurship and administration.</span><small><b>Useful skills:</b> Leadership, communication, problem-solving, business knowledge.</small><div class="chips"></div></div>
+<div class="cc" data-a="tech"><div class="sh"><b>💻 Technology</b><span class="pl done" hidden>Common starting point</span></div><span>Explore careers in software, web development, data, AI and other technology fields.</span><small><b>Useful skills:</b> Programming, logical thinking, problem-solving and continuous learning.</small><div class="chips"></div></div>
+<div class="cc" data-a="law"><div class="sh"><b>⚖️ Law &amp; Public Services</b><span class="pl done" hidden>Common starting point</span></div><span>Explore careers related to law, administration and public service.</span><small><b>Useful skills:</b> Communication, reasoning, general knowledge, research.</small><div class="chips"></div></div>
+<div class="cc" data-a="creative"><div class="sh"><b>🎨 Creative &amp; Media</b><span class="pl done" hidden>Common starting point</span></div><span>Explore careers in design, content, animation, video, writing and digital media.</span><small><b>Useful skills:</b> Creativity, communication, design and digital tools.</small><div class="chips"></div></div>
+</div>
+<p class="note">Tap a career name inside any area to open its roadmap.</p>
+
+<h3 class="cxh" id="cx-road">🧭 Career Roadmap</h3>
+<p class="lead" style="margin-bottom:8px">Every career has a different path.</p>
+<div class="flow"><span class="pl">School</span><i>→</i><span class="pl">Required Education</span><i>→</i><span class="pl">Important Skills</span><i>→</i><span class="pl">Practical Experience</span><i>→</i><span class="pl">Career</span></div>
+<p class="lead">Select a career to see its recommended roadmap, important skills and major milestones.</p>
+<div class="sf"><label class="full">Select a career<select id="cx_sel"></select></label></div>
+<div class="sc" id="cx_road" tabindex="-1"></div>
+
+<h3 class="cxh" id="cx-compare">⚖️ Compare Careers</h3>
+<p class="lead" style="margin-bottom:10px">Compare up to 3 career options based on:</p>
+<div style="margin-bottom:14px"><span class="pl">Education required</span> <span class="pl">Course/qualification</span> <span class="pl">Important skills</span> <span class="pl">Study commitment</span> <span class="pl">Work type</span> <span class="pl">Career opportunities</span> <span class="pl">Typical work environment</span> <span class="pl">Further learning options</span></div>
+<div class="sf"><label>Career 1<select id="cx_c1"></select></label><label>Career 2<select id="cx_c2"></select></label><label>Career 3<select id="cx_c3"></select></label></div>
+<div id="cx_cmp"></div>
+<p class="note"><b>Make an informed decision</b> instead of choosing a career only because it is popular.</p>
+
+<h3 class="cxh" id="cx-quiz">🧠 Which Career May Suit You?</h3>
+<p class="lead">Answer a few simple questions about the subjects you enjoy, your interests, strengths, preferred type of work, skills you want to develop and the work environment you prefer. The system will show a few career areas that may match your interests.</p>
+<div class="qs" id="cx_q"></div>
+<div class="row"><button type="button" id="cx_qgo">Show career areas</button><button type="button" class="ghost" id="cx_qrs">Reset</button></div>
+<div id="cx_qr" style="margin-top:16px" aria-live="polite"></div>
+<p class="note"><b>Note:</b> These suggestions are only guidance. Your interests, abilities, education and experience can change over time.</p>
+
+<h3 class="cxh" id="cx-skills">🛠️ Skills to Build</h3>
+<p class="lead">Whatever career you choose, developing useful skills can give you an advantage.</p>
+<h4>Core Student Skills</h4>
+<div class="cxg" id="cx_sk"></div>
+<div class="brandbox" style="margin-top:24px"><b>💡 Start Early</b><span>You don't need to decide your entire future today.</span><div class="flow"><span class="pl">Explore</span><i>→</i><span class="pl">Learn</span><i>→</i><span class="pl">Practice</span><i>→</i><span class="pl">Experience</span><i>→</i><span class="pl">Decide</span></div></div>
+
+<h3 class="cxh" id="cx-plan">⭐ My Career Plan</h3>
+<p class="lead">Create your own personal career plan. It is saved on this device.</p>
+<datalist id="cx_names"></datalist>
+<div class="sf">
+<label>My Target<input id="pl_t" list="cx_names" maxlength="60" placeholder="e.g. Chartered Accountant"></label>
+<label>Current Class<select id="pl_c"></select></label>
+<label class="full">Skills I Want to Learn<input id="pl_s" maxlength="120" placeholder="e.g. Excel, Tally, communication"></label>
+<label>Next Milestone<input id="pl_m" maxlength="80" placeholder="e.g. Finish Class 12 with 80%"></label>
+<label>Target Date<input id="pl_d" type="date"></label>
+<label class="full">Progress: <b id="pl_pv">0%</b><input id="pl_p" type="range" min="0" max="100" step="5" value="0"></label>
+<div class="full"><div class="bar"><i id="pl_bar"></i></div><small id="pl_hint" style="color:var(--mute)"></small></div>
+<div class="full chips" id="pl_sug"></div>
+<div class="full row"><small id="pl_save" style="color:var(--mute)">Saved on this device</small><button type="button" class="ghost sm" id="pl_clr">Clear plan</button></div></div>
+
+<div class="boost" style="margin-top:40px"><p>🚀 Keep Exploring</p><div class="bs">Your first choice doesn't have to be your final choice. Explore different possibilities, learn about them, and choose your path based on your own interests, strengths and goals.</div></div>
+</div></section>
+
+<section id="formulas"><div class="wrap">
+<h2>Student Formula Library</h2>
+<p class="lead">Accounting, Economics, Excel, Tally, GST, Mathematics and useful AI shortcuts in one place.</p>
+<div class="tabs" id="ftabs" role="tablist"></div>
+<input id="fq" type="search" placeholder="Search formulas, e.g. ratio, VLOOKUP" aria-label="Search formulas">
+<div class="flist" id="fl"></div>
+</div></section>
+
+<section id="calc"><div class="wrap">
+<h2>Student Calculators</h2>
+<p class="lead">Quickly calculate GST, percentage, profit, loss, discount, interest and more.</p>
+<div class="cg">
+<div class="calc"><h3>GST calculator</h3>
+<label>Amount (₹)<input id="ga" type="number" inputmode="decimal" min="0"></label>
+<label>GST rate<select id="gr"><option value="0">0%</option><option value="3">3%</option><option value="5">5%</option><option value="12">12%</option><option value="18" selected>18%</option><option value="28">28%</option></select></label>
+<label>Amount is<select id="gm"><option value="add">Without GST (add GST)</option><option value="rem">With GST (remove GST)</option></select></label>
+<div class="out" id="gout">Enter an amount to see the split.</div></div>
+<div class="calc"><h3>Percentage calculator</h3>
+<div class="pr"><input id="p1x" type="number" inputmode="decimal" aria-label="Percent"> % of <input id="p1y" type="number" inputmode="decimal" aria-label="Number"> = <b id="p1o">–</b></div>
+<div class="pr"><input id="p2x" type="number" inputmode="decimal" aria-label="Part"> is what % of <input id="p2y" type="number" inputmode="decimal" aria-label="Whole"> = <b id="p2o">–</b></div>
+<div class="pr">Change from <input id="p3x" type="number" inputmode="decimal" aria-label="Old value"> to <input id="p3y" type="number" inputmode="decimal" aria-label="New value"> = <b id="p3o">–</b></div>
+</div>
+<div class="calc"><h3>Profit and loss</h3>
+<label>Cost price (₹)<input id="pl1" type="number" inputmode="decimal" min="0"></label>
+<label>Selling price (₹)<input id="pl2" type="number" inputmode="decimal" min="0"></label>
+<div class="out" id="plo">Enter both prices.</div></div>
+<div class="calc"><h3>Discount</h3>
+<label>Marked price (₹)<input id="d1" type="number" inputmode="decimal" min="0"></label>
+<label>Discount (%)<input id="d2" type="number" inputmode="decimal" min="0"></label>
+<div class="out" id="do">Enter price and discount.</div></div>
+<div class="calc"><h3>Interest</h3>
+<label>Principal (₹)<input id="i1" type="number" inputmode="decimal" min="0"></label>
+<label>Rate (% per year)<input id="i2" type="number" inputmode="decimal" min="0"></label>
+<label>Time (years)<input id="i3" type="number" inputmode="decimal" min="0"></label>
+<div class="out" id="io">Enter all three values.</div></div></div>
+</div></section>
+
+<section id="skills"><div class="wrap skills">
+<div><h2>Skills Worth Building</h2>
+<p class="lead">Marks matter, but practical skills help you go further. Practice one useful skill every day.</p>
+<ul class="ideas">
+<li><b>Communication:</b> explain one concept aloud each day.</li>
+<li><b>Typing and digital basics:</b> forms, email, documents.</li>
+<li><b>Design:</b> make a poster or slide in Canva.</li>
+<li><b>Time management:</b> plan tomorrow before you sleep.</li>
+<li><b>English speaking:</b> read aloud for 10 minutes.</li></ul></div>
+<div><h2>My Skill Tracker</h2>
+<p class="lead">Add your skill and track your progress as you practice. Your progress is saved on this device.</p>
+<div class="add"><input id="sn" placeholder="Skill name, e.g. Typing" aria-label="Skill name" maxlength="40"><button id="sa">Add skill</button></div>
+<div id="sl"></div></div>
+</div></section>
+
+<section id="assistant" class="sys"><div class="wrap">
+<h2>24×7 AI Study Assistant <span class="badge">AI</span></h2>
+<div class="brandbox"><b>Your AI study helper, available any time you need it.</b><span>It explains concepts in simple language, helps you solve doubts step by step and supports your revision. It is a study helper, not a replacement for your teachers. AI can make mistakes, so check important answers with your textbook or teacher.</span></div>
+<div style="margin-bottom:16px"><span class="pl done">Instant help</span> <span class="pl done">Simple language</span> <span class="pl done">Step by step</span> <span class="pl done">Doubt solving</span> <span class="pl done">Revision support</span></div>
+<div class="sf">
+<label>Subject<select id="ai_sub"><option>Accountancy</option><option>Economics</option><option>Business Studies</option><option>Maths</option><option>English</option><option>Other subject</option></select></label>
+<label>Class<select id="ai_cls"><option>Class 11</option><option selected>Class 12</option><option>B.Com or graduation</option><option>Other</option></select></label>
+<label>I need<select id="ai_mode"><option value="explain">Concept explained simply</option><option value="steps">Step-by-step help</option><option value="doubt">Doubt solving</option><option value="revise">Revision support</option><option value="quiz">Quiz me</option></select></label>
+<label>Language<select id="ai_lang"><option value="Hinglish">Hinglish</option><option value="English">English</option><option value="Hindi">Hindi</option></select></label>
+<label class="full">Your question or topic<textarea id="ai_q" maxlength="1000" placeholder="e.g. Explain depreciation with an example"></textarea></label>
+<div class="full chips" id="ai_ch"></div>
+<div class="full row"><button type="button" id="ai_go" hidden>Ask AI here</button><a class="btn" id="ai_cl" href="#" target="_blank" rel="noopener">Ask in Claude</a><a class="btn" id="ai_gp" href="#" target="_blank" rel="noopener">Ask in ChatGPT</a><button type="button" id="ai_cp" class="ghost">Copy prompt</button></div>
+<small class="full" id="ai_hint" style="color:var(--mute)">Pick your subject and question. Your question is sent to the AI app you choose, already written as a good study prompt.</small></div>
+<div class="sc" id="ai_out" hidden></div>
+</div></section>
+
+<section id="aitools"><div class="wrap">
+<h2>AI Tools</h2>
+<p class="lead">Build a clear prompt from role, task and format. Then add a shortcut from the Formula Library, like /STEP-BY-STEP.</p>
+<div class="calc" style="max-width:640px">
+<label>Role<input id="ar" placeholder="e.g. a Class 12 Accountancy teacher"></label>
+<label>Task<input id="at" placeholder="e.g. Explain depreciation with an example"></label>
+<label>Format<select id="af"><option>short bullet points</option><option>a table</option><option>step by step</option><option>a checklist</option></select></label>
+<div class="ob" id="ao"></div>
+<button id="ac">Copy prompt</button></div>
+</div></section>
+
+<section id="tools"><div class="wrap">
+<h2>Student Tools</h2>
+<p class="lead">Convert files and clean up your notes. Everything runs on your device and your files are not uploaded anywhere.</p>
+<div class="cg">
+<div class="cd"><h3>PDF to Images</h3><p>Every page of your PDF becomes a PNG picture.</p>
+<input id="pf" type="file" accept="application/pdf" aria-label="Choose PDF"><button id="p2i">Convert to images</button><div class="pgs" id="pgo"></div></div>
+<div class="cd"><h3>Images to PDF</h3><p>Pick one or more pictures. Each one becomes a page.</p>
+<input id="if" type="file" accept="image/*" multiple aria-label="Choose images"><button id="i2p">Make PDF</button><div id="ipo"></div></div>
+</div>
+<div class="cd"><h3>Image to Handwritten Notes</h3>
+<p>Turn a photo of notes or a textbook page into a clean pen-on-paper look.</p>
+<input id="hf" type="file" accept="image/*" aria-label="Choose image">
+<div class="row"><label>Ink strength <input id="hs" type="range" min="0" max="100" value="50"></label>
+<label>Pen <select id="hk"><option value="0">Blue</option><option value="1">Black</option><option value="2">Red</option></select></label>
+<label><input id="hl" type="checkbox" checked style="flex:none;width:auto"> Ruled paper</label></div>
+<canvas id="hc"></canvas><div class="row"><a class="btn" id="hd" href="#" download="handwritten-notes.png" style="display:none">Download PNG</a></div></div>
+</div></section>
+
+<section id="timetable"><div class="wrap">
+<h2>My Timetable</h2>
+<p class="lead noprint">Start from a template, then change any box. Your timetable is saved on this device.</p>
+<p class="noprint" style="margin:0 0 12px;padding:10px 14px;border-left:4px solid var(--sun);background:var(--panel);border-radius:8px">💡 <b>Tip:</b> You can change any subject and time to match your own routine. Just tap a box and type, or add a new row for extra subjects.</p>
+<div class="row noprint" style="margin-bottom:12px"><label>Template <select id="tsel"></select></label><button id="tar">Add row</button><button id="tcl" class="alt" style="background:var(--line);color:var(--ink)">Clear all</button><button id="tpr">Print / Save as PDF</button></div>
+<div class="ttw"><table class="tt" id="ttb"></table></div>
+</div></section>
+
+<section id="boost"><div class="wrap">
+<h2>Daily Student Boost</h2>
+<p class="lead">Start your day with five simple reminders to stay focused, consistent and confident.</p>
+<ul class="m5" id="m5"></ul>
+<div class="boost"><p id="q"></p><button id="nq">Show another</button></div>
+</div></section>
+
+<section id="feedback"><div class="wrap">
+<h2>Your Feedback</h2>
+<p class="lead">Tell me what helped you and what I should improve. Your message opens in WhatsApp and reaches me directly.</p>
+<div class="cd" style="max-width:640px;margin-top:0">
+<label style="font-weight:600">How was your experience?</label>
+<div class="stars" id="fst" role="group" aria-label="Rating out of 5"></div>
+<input id="fn" placeholder="Your name (optional)" aria-label="Your name" maxlength="40">
+<textarea id="fm" placeholder="Write your feedback or suggestion here" aria-label="Your feedback"></textarea>
+<div class="row"><a id="fsend" href="#" target="_blank" rel="noopener">Send on WhatsApp</a><small id="fh" style="color:var(--mute)"></small></div></div>
+</div></section>
+
+<a class="wa" href="https://wa.me/918280775257?text=Hi%20Chandan%2C%20I%20found%20you%20on%20Chandan%20Hub." target="_blank" rel="noopener" aria-label="Chat with Chandan on WhatsApp">WhatsApp me</a>
+<footer><div class="wrap">Made by Chandan • Brahmapur, Odisha • Keep learning.<br><a href="https://wa.me/918280775257?text=Hi%20Chandan%2C%20I%20found%20you%20on%20Chandan%20Hub." target="_blank" rel="noopener">Contact on WhatsApp: +91 82807 75257</a></div></footer>
+
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+
+/* Timer */
+var secs=1500,left=1500,t=null,fin=0;
+function draw(){var m=Math.floor(left/60),s=left%60;$("clock").textContent=(m<10?"0":"")+m+":"+(s<10?"0":"")+s;document.title=t?$("clock").textContent+" | Chandan Hub":"Chandan Hub: Study Smarter. Build Skills."}
+function stop(){clearInterval(t);t=null;$("go").textContent="Start"}
+document.querySelectorAll(".modes button").forEach(function(b){b.onclick=function(){
+document.querySelectorAll(".modes button").forEach(function(x){x.setAttribute("aria-pressed","false")});
+b.setAttribute("aria-pressed","true");stop();secs=left=+b.dataset.m*60;draw()}});
+$("go").onclick=function(){
+if(t){stop();draw();return}
+fin=Date.now()+left*1000;$("go").textContent="Pause";
+t=setInterval(function(){left=Math.max(0,Math.round((fin-Date.now())/1000));draw();
+if(left<=0){stop();draw();var n=ld("sessions",0)+1;sv("sessions",n);$("done").textContent="Sessions finished today: "+n+". Take a breath."}},250)};
+$("rs").onclick=function(){stop();left=secs;draw()};
+var today=new Date().toDateString();
+if(ld("day","")!==today){sv("day",today);sv("sessions",0)}
+$("done").textContent="Sessions finished today: "+ld("sessions",0);
+
+/* Study tips */
+var tips={
+"Accountancy":["Learn the golden rules, then journalise 5 transactions daily.","Practise trial balance and final accounts on paper, not just by reading.","Keep a one-page formula and format sheet for revision."],
+"Business Studies":["Make a table for each concept: meaning, features, example.","Link every chapter to a real business you know.","In case studies, write the keyword first, then the reason."],
+"Economics":["Draw the demand and supply curves yourself, then shift them.","Learn each term with one everyday example.","Revise formulas and graphs together."],
+"Mathematics":["Solve before you read the solution: 5 problems a day.","Keep an error notebook and redo each mistake after 3 days.","Derive each formula once so you remember why it works."],
+"English":["Read aloud for 10 minutes every day.","Learn new words in sentences, not lists.","Write five lines in a diary each night."],
+"Computer":["Type out every program yourself, never just read it.","Practise formulas and shortcuts in Excel and Tally.","Break each problem into steps before you start."],
+"Exams":["Study in 25-minute blocks with 5-minute breaks.","Solve previous year papers under a timer.","Revise on day 1, 3, 7 and 21."]};
+var tb=$("tabs");
+Object.keys(tips).forEach(function(k,i){var b=document.createElement("button");b.textContent=k;b.setAttribute("role","tab");
+b.onclick=function(){show(k)};tb.appendChild(b)});
+function show(k){
+tb.querySelectorAll("button").forEach(function(b){b.setAttribute("aria-selected",b.textContent===k)});
+$("tip").innerHTML="<h3>"+k+"</h3><ul>"+tips[k].map(function(x){return"<li>"+x+"</li>"}).join("")+"</ul>"}
+show("Accountancy");
+
+/* Skill tracker */
+var sk=ld("skills",[{n:"Communication",p:20}]);
+function esc(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML}
+function render(){
+$("sl").innerHTML=sk.length?sk.map(function(s,i){return'<div class="sk"><div><span>'+esc(s.n)+' ('+s.p+'%)</span><span><button data-u="'+i+'" aria-label="Add 10 percent to '+esc(s.n)+'">+10%</button> <button class="x" data-d="'+i+'" aria-label="Remove '+esc(s.n)+'">Remove</button></span></div><div class="bar"><i style="width:'+s.p+'%"></i></div></div>'}).join(""):"<p class='lead'>No skills yet. Add your first one above.</p>";
+sv("skills",sk)}
+$("sl").onclick=function(e){var u=e.target.dataset.u,d=e.target.dataset.d;
+if(u!==undefined){sk[u].p=Math.min(100,sk[u].p+10);render()}
+if(d!==undefined){sk.splice(d,1);render()}};
+function add(){var v=$("sn").value.trim();if(!v)return;sk.push({n:v,p:0});$("sn").value="";render()}
+$("sa").onclick=add;$("sn").onkeydown=function(e){if(e.key==="Enter")add()};
+render();
+
+/* Formula library */
+var FD={
+"Accounting":`Accounting Equation|Assets = Liabilities + Equity
+Gross Profit|Sales − Cost of Goods Sold
+Net Profit|Revenue − Total Expenses
+Gross Profit Margin|(Gross Profit ÷ Sales) × 100
+Net Profit Margin|(Net Profit ÷ Sales) × 100
+Current Ratio|Current Assets ÷ Current Liabilities
+Quick Ratio|(Current Assets − Inventory) ÷ Current Liabilities
+Working Capital|Current Assets − Current Liabilities
+Debt-to-Equity Ratio|Total Liabilities ÷ Equity
+Debt Ratio|Total Liabilities ÷ Total Assets
+Return on Assets (ROA)|(Net Profit ÷ Avg Total Assets) × 100
+Return on Equity (ROE)|(Net Profit ÷ Avg Equity) × 100
+Inventory Turnover|COGS ÷ Avg Inventory
+Receivables Turnover|Credit Sales ÷ Avg Accounts Receivable
+Avg Collection Period|365 ÷ Receivables Turnover
+Payables Turnover|Credit Purchases ÷ Avg Accounts Payable
+Days Payable Outstanding|365 ÷ Payables Turnover
+Earnings Per Share (EPS)|(Net Profit − Preference Dividends) ÷ Ordinary Shares
+Break-Even Point (Units)|Fixed Costs ÷ Contribution per Unit
+Contribution per Unit|Selling Price − Variable Cost per Unit
+Contribution Margin|(Contribution ÷ Sales) × 100
+Margin of Safety|Actual Sales − Break-Even Sales
+Depreciation (Straight Line)|(Cost − Residual Value) ÷ Useful Life
+Carrying Amount|Cost − Accumulated Depreciation
+Markup|(Profit ÷ Cost) × 100
+Return on Investment (ROI)|(Net Profit ÷ Investment) × 100
+Asset Turnover|Sales ÷ Avg Total Assets
+Operating Profit|Gross Profit − Operating Expenses
+Cash Conversion Cycle|Inventory Days + Receivable Days − Payable Days
+Present Value|Future Cash Flow ÷ (1 + Interest Rate)^n`,
+"Economics":`GDP (expenditure)|C + I + G + (X − M)
+Total Revenue|Price × Quantity
+Average Cost|Total Cost ÷ Output
+Marginal Cost|Change in Total Cost ÷ Change in Output
+Marginal Revenue|Change in Total Revenue ÷ Change in Output
+Price Elasticity of Demand|% change in Quantity ÷ % change in Price
+Inflation Rate|((CPI new − CPI old) ÷ CPI old) × 100
+Per Capita Income|National Income ÷ Population
+MPC|Change in Consumption ÷ Change in Income
+MPS|1 − MPC
+Investment Multiplier|1 ÷ (1 − MPC)
+Average Propensity to Consume|Consumption ÷ Income`,
+"Excel":`SUM|=SUM(B2:B6)
+AVERAGE|=AVERAGE(B2:B6)
+IF|=IF(B2>=50,"Pass","Fail")
+COUNT|=COUNT(B2:B6)
+COUNTA|=COUNTA(B2:B6)
+MAX|=MAX(B2:B6)
+MIN|=MIN(B2:B6)
+VLOOKUP|=VLOOKUP(B2,A2:C6,3,FALSE)
+XLOOKUP|=XLOOKUP(B2,A2:A6,B2:B6,"Not Found")
+CONCAT|=CONCAT(A2," ",B2)
+LEFT|=LEFT(B2,3)
+RIGHT|=RIGHT(B2,3)
+MID|=MID(B2,4,3)
+LEN|=LEN(B2)
+TRIM|=TRIM(B2)
+TEXT|=TEXT(B2,"dd-mm-yyyy")
+DATE|=DATE(B2,C2,D2)
+TODAY|=TODAY()
+NOW|=NOW()
+ROUND|=ROUND(B2,2)
+INDEX|=INDEX(A2:C6,3,2)
+MATCH|=MATCH(E2,A2:A6,0)
+SUMIF|=SUMIF(B2:B6,"East",C2:C6)
+SUMIFS|=SUMIFS(C2:C7,A2:A7,"East",B2:B7,"Laptop")
+COUNTIF|=COUNTIF(B2:B6,"East")
+COUNTIFS|=COUNTIFS(B2:B6,"East",C2:C6,">3000")
+AVERAGEIF|=AVERAGEIF(B2:B6,"East",C2:C6)
+IFERROR|=IFERROR(A2/B2,"N/A")
+FILTER|=FILTER(A2:C6,B2:B6="East")
+UNIQUE|=UNIQUE(A2:A10)
+SORT|=SORT(A2:C6,3,-1)
+VLOOKUP (approx)|=VLOOKUP(B2,A2:B6,2,TRUE)
+CHOOSE|=CHOOSE(2,"Low","Mid","High")
+OFFSET|=OFFSET(A1,1,1,3,1)
+INDIRECT|=INDIRECT("A2")
+SUBSTITUTE|=SUBSTITUTE(B2,"-","/")
+EXACT|=EXACT(B2,C2)
+ROW|=ROW(B2)
+COLUMN|=COLUMN(B2)
+ABS|=ABS(B2)
+SQRT|=SQRT(B2)
+MOD|=MOD(B2,3)
+RANDBETWEEN|=RANDBETWEEN(1,100)
+Date plus 7 days|=TODAY()+7
+TEXTJOIN|=TEXTJOIN(", ",TRUE,A2:A5)
+XOR|=XOR(B2>50,C2>50)
+Number as text|=TEXT(B2,"0.00")`,
+"Mathematics":`Rule: a>0, a≠1, m,n>0|log_a m = x ⇔ a^x = m
+Product Rule|log_a(mn) = log_a m + log_a n|log10(100×10) = 2 + 1 = 3
+Quotient Rule|log_a(m/n) = log_a m − log_a n|log10(100/10) = 2 − 1 = 1
+Power Rule|log_a(m^n) = n log_a m|log10(10^3) = 3×1 = 3
+Base Change Rule|log_a m = 1 ÷ log_m a|log2 8 = 1/log8 2 = 1/(1/3) = 3
+Log of 1|log_a 1 = 0|log10 1 = 0
+Log of the Base|log_a a = 1|log10 10 = 1
+Common mistake|log_a(mn) ≠ log_a m × log_a n|It is log_a m + log_a n
+(a + b)²|a² + 2ab + b²
+(a − b)²|a² − 2ab + b²
+a² − b²|(a + b)(a − b)
+Simple Interest|(P × R × T) ÷ 100
+Compound Interest|A = P(1 + R/100)^T, CI = A − P
+Profit %|(Profit ÷ Cost Price) × 100
+Loss %|(Loss ÷ Cost Price) × 100
+Discount|Marked Price − Selling Price
+Average|Sum of values ÷ Number of values`,
+"Tally":`Payment voucher|F5
+Receipt voucher|F6
+Journal voucher|F7
+Sales voucher|F8
+Purchase voucher|F9
+Contra voucher|F4
+Credit note|Ctrl + F8
+Debit note|Ctrl + F9
+Change date|F2
+Change period|Alt + F2
+Configure|F12
+Create master|Alt + C
+Delete|Alt + D
+Accept screen|Ctrl + A
+Quit or cancel|Ctrl + Q
+Export|Alt + E
+Print|Alt + P`,
+"GST":`GST Amount|Price × GST Rate ÷ 100
+Price with GST|Price + GST Amount
+Price before GST|Price with GST × 100 ÷ (100 + Rate)
+CGST and SGST|Each = GST Amount ÷ 2 (same state)
+IGST|CGST + SGST (inter-state)
+Net GST payable|Output GST − Input GST`,
+"AI Shortcuts":`How to use|Type the shortcut before your question, e.g. /TLDR then paste your text
+/EXPLAIN|Explain the concept simply
+/ELI5|Explain it in very simple language
+/TLDR|Summarize the text briefly
+/STEP-BY-STEP|Explain step by step
+/EXAMPLE|Give a practical example
+/QUIZ|Test me with questions
+/CHECK|Check my answer
+/REVISION|Create quick revision notes
+/FLASHCARDS|Create flashcards
+/CHECKLIST|Turn it into a checklist
+/COMPARE|Compare two or more things
+/TABLE|Present the information as a table
+/SIMPLIFY|Make the explanation easier
+/REWRITE|Rewrite in a better way`};
+var cur="Accounting",ft=$("ftabs");
+Object.keys(FD).forEach(function(k){var b=document.createElement("button");b.textContent=k;b.setAttribute("role","tab");
+b.onclick=function(){cur=k;fr()};ft.appendChild(b)});
+function fr(){
+ft.querySelectorAll("button").forEach(function(b){b.setAttribute("aria-selected",b.textContent===cur)});
+var q=$("fq").value.toLowerCase();
+$("fl").innerHTML=FD[cur].split("\n").filter(function(r){return r.toLowerCase().indexOf(q)>-1}).map(function(r){var p=r.split("|");
+return'<div class="f"><b>'+esc(p[0])+'</b><code>'+esc(p[1])+'</code>'+(p[2]?'<small>'+esc(p[2])+'</small>':'')+'</div>'}).join("")||"<p class='lead'>No match. Try another word.</p>"}
+$("fq").oninput=fr;fr();
+
+/* Calculators */
+function n(i){return parseFloat($(i).value)}
+function f2(x){return x.toLocaleString("en-IN",{maximumFractionDigits:2})}
+function rw(l,v){return"<div><span>"+l+"</span><b>₹"+f2(v)+"</b></div>"}
+function pt(x){return isFinite(x)?f2(x)+"%":"–"}
+function calc(){
+var a=n("ga"),r=+$("gr").value;
+if(a>=0){var b=$("gm").value==="add"?a:a*100/(100+r),t=b*r/100;
+$("gout").innerHTML=rw("Price before GST",b)+rw("CGST ("+r/2+"%)",t/2)+rw("SGST ("+r/2+"%)",t/2)+rw("IGST if inter-state ("+r+"%)",t)+rw("Total with GST",b+t)}
+else $("gout").textContent="Enter an amount to see the split.";
+var x=n("p1x"),y=n("p1y");$("p1o").textContent=isFinite(x*y)?f2(x*y/100):"–";
+x=n("p2x");y=n("p2y");$("p2o").textContent=pt(x/y*100);
+x=n("p3x");y=n("p3y");$("p3o").textContent=pt((y-x)/x*100);more()}
+function more(){
+var c=n("pl1"),q=n("pl2");
+$("plo").innerHTML=(c>=0&&q>=0)?(q>=c?rw("Profit",q-c)+(c>0?"<div><span>Profit %</span><b>"+pt((q-c)/c*100)+"</b></div>":""):rw("Loss",c-q)+"<div><span>Loss %</span><b>"+pt((c-q)/c*100)+"</b></div>"):"Enter both prices.";
+var m=n("d1"),d=n("d2");
+$("do").innerHTML=(m>=0&&d>=0)?rw("You save",m*d/100)+rw("Final price",m-m*d/100):"Enter price and discount.";
+var p=n("i1"),r=n("i2"),t=n("i3");
+if(p>=0&&r>=0&&t>=0){var si=p*r*t/100,ci=p*Math.pow(1+r/100,t)-p;$("io").innerHTML=rw("Simple interest",si)+rw("Simple amount",p+si)+rw("Compound interest (yearly)",ci)+rw("Compound amount",p+ci)}else $("io").textContent="Enter all three values."}
+document.querySelectorAll(".calc input,.calc select").forEach(function(e){e.addEventListener("input",calc);e.addEventListener("change",calc)});
+
+/* Exam countdown */
+function ex(){var v=$("ed").value,m;
+if(!v){$("eo").textContent="Pick your exam date to see what to focus on today.";return}
+var d=Math.ceil((new Date(v+"T00:00:00")-new Date(new Date().toDateString()))/864e5);
+if(d<0)m="This exam date has passed. Pick the next one.";
+else if(d===0)m="Exam day. Read the paper for 10 minutes, then start with your strongest questions.";
+else m=d+" days left. "+(d>60?"Learn phase: finish the syllabus and make one-page notes for each chapter.":d>30?"Practice phase: solve one past paper every week and fix mistakes in your error notebook.":d>7?"Revision phase: revise each chapter twice and attempt a timed paper every 3 days.":"Final week: revise formulas and your error notebook, and sleep on time.");
+$("eo").textContent=m}
+$("ed").value=ld("exam","");ex();
+$("ed").onchange=function(){sv("exam",$("ed").value);ex()};
+
+/* Prompt builder */
+function pb(){$("ao").textContent="ROLE: "+($("ar").value||"…")+"\nTASK: "+($("at").value||"…")+"\nFORMAT: "+$("af").value}
+$("ar").oninput=pb;$("at").oninput=pb;$("af").onchange=pb;pb();
+$("ac").onclick=function(){var b=$("ac");try{navigator.clipboard.writeText($("ao").textContent);b.textContent="Copied"}catch(e){b.textContent="Select the text above and copy"}setTimeout(function(){b.textContent="Copy prompt"},1800)};
+
+/* Daily boost */
+var M5=["I will improve today.","I will stay focused on my goals.","I will learn something new today.","I will stay consistent, even when it is difficult.","I will make today's study count."],md=ld("m5",{d:"",x:[]});
+if(md.d!==today)md={d:today,x:[]};
+$("m5").innerHTML=M5.map(function(s,i){return'<li><label><input type="checkbox" data-i="'+i+'"'+(md.x.indexOf(i)>-1?" checked":"")+'><span>'+s+'</span></label></li>'}).join("");
+$("m5").onchange=function(e){var i=+e.target.dataset.i,k=md.x.indexOf(i);if(k>-1)md.x.splice(k,1);else md.x.push(i);sv("m5",md)};
+var qs=["Small steps every day beat big plans you never start.","You don't need to be perfect. You need to be consistent.","Today's 25 minutes is tomorrow's confidence.","Confused is just the step before clear.","Compare yourself to who you were last week.","Marks open doors. Skills keep them open.","Ask one more question than you did yesterday.","A hard chapter is just an easy one you haven't understood yet.","Start before you feel ready.","Learn it twice: once to know it, once to teach it."];
+var qi=Math.floor(Date.now()/864e5)%qs.length;
+$("q").textContent=qs[qi];
+$("nq").onclick=function(){qi=(qi+1)%qs.length;$("q").textContent=qs[qi]};
+
+/* PDF to images */
+var PJ="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf";
+function lp(cb){if(window.pdfjsLib)return cb();var s=document.createElement("script");s.src=PJ+".min.js";
+s.onload=function(){pdfjsLib.GlobalWorkerOptions.workerSrc=PJ+".worker.min.js";cb()};
+s.onerror=function(){$("pgo").textContent="Could not load the PDF engine. Check your internet."};document.head.appendChild(s)}
+$("p2i").onclick=function(){var f=$("pf").files[0];if(!f){$("pgo").textContent="Choose a PDF first.";return}
+$("pgo").textContent="Converting…";
+lp(function(){f.arrayBuffer().then(function(b){return pdfjsLib.getDocument({data:b}).promise}).then(async function(pdf){
+$("pgo").innerHTML="";
+for(var i=1;i<=pdf.numPages;i++){var pg=await pdf.getPage(i),vp=pg.getViewport({scale:2}),c=document.createElement("canvas");
+c.width=vp.width;c.height=vp.height;await pg.render({canvasContext:c.getContext("2d"),viewport:vp}).promise;
+var u=c.toDataURL("image/png"),d=document.createElement("div");
+d.innerHTML='<img alt="Page '+i+'" src="'+u+'"><a href="'+u+'" download="page-'+i+'.png">Download page '+i+'</a>';$("pgo").appendChild(d)}
+}).catch(function(){$("pgo").textContent="This PDF could not be read. It may be locked or damaged."})})};
+
+/* Images to PDF */
+function li(f){return new Promise(function(r,j){var im=new Image();im.onload=function(){r(im)};im.onerror=j;im.src=URL.createObjectURL(f)})}
+function mkpdf(imgs){var parts=[],len=0,off=[];
+function add(x){var u=typeof x==="string"?new TextEncoder().encode(x):x;parts.push(u);len+=u.length}
+function obj(n,dict,data){off[n]=len;add(n+" 0 obj\n"+dict);if(data){add("\nstream\n");add(data);add("\nendstream")}add("\nendobj\n")}
+add("%PDF-1.4\n");var k=imgs.length;
+obj(1,"<</Type/Catalog/Pages 2 0 R>>");
+obj(2,"<</Type/Pages/Kids["+imgs.map(function(_,i){return(3+i*3)+" 0 R"}).join(" ")+"]/Count "+k+">>");
+imgs.forEach(function(im,i){var p=3+i*3,s=Math.min(555/im.w,802/im.h),w=im.w*s,h=im.h*s,cs="q "+w.toFixed(2)+" 0 0 "+h.toFixed(2)+" "+((595-w)/2).toFixed(2)+" "+((842-h)/2).toFixed(2)+" cm /I Do Q";
+obj(p,"<</Type/Page/Parent 2 0 R/MediaBox[0 0 595 842]/Resources<</XObject<</I "+(p+2)+" 0 R>>>>/Contents "+(p+1)+" 0 R>>");
+obj(p+1,"<</Length "+cs.length+">>",cs);
+obj(p+2,"<</Type/XObject/Subtype/Image/Width "+im.w+"/Height "+im.h+"/ColorSpace/DeviceRGB/BitsPerComponent 8/Filter/DCTDecode/Length "+im.d.length+">>",im.d)});
+var xr=len,n=3+k*3;add("xref\n0 "+n+"\n0000000000 65535 f \n");
+for(var i=1;i<n;i++)add(("0000000000"+off[i]).slice(-10)+" 00000 n \n");
+add("trailer\n<</Size "+n+"/Root 1 0 R>>\nstartxref\n"+xr+"\n%%EOF");
+return new Blob(parts,{type:"application/pdf"})}
+$("i2p").onclick=async function(){var fs=$("if").files;if(!fs.length){$("ipo").textContent="Choose at least one image.";return}
+$("ipo").textContent="Making PDF…";var out=[];
+try{for(var i=0;i<fs.length;i++){var im=await li(fs[i]),sc=Math.min(1,1800/Math.max(im.width,im.height)),c=document.createElement("canvas");
+c.width=Math.round(im.width*sc);c.height=Math.round(im.height*sc);var x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);
+var b=atob(c.toDataURL("image/jpeg",.9).split(",")[1]),u=new Uint8Array(b.length);for(var j=0;j<b.length;j++)u[j]=b.charCodeAt(j);
+out.push({w:c.width,h:c.height,d:u})}
+var url=URL.createObjectURL(mkpdf(out));$("ipo").innerHTML='<a class="btn" href="'+url+'" download="images.pdf">Download PDF ('+out.length+' page'+(out.length>1?"s":"")+')</a>'}
+catch(e){$("ipo").textContent="One of the files is not a valid image."}};
+
+/* Handwritten notes style */
+var hi=null;
+function hw(){if(!hi)return;var sc=Math.min(1,1600/Math.max(hi.width,hi.height)),w=Math.round(hi.width*sc),h=Math.round(hi.height*sc),c=$("hc");
+c.width=w;c.height=h;c.style.display="block";var x=c.getContext("2d");x.fillStyle="#fffdf5";x.fillRect(0,0,w,h);
+if($("hl").checked){x.lineWidth=1;x.strokeStyle="rgba(90,130,200,.35)";var g=Math.round(h/28);for(var y=g;y<h;y+=g){x.beginPath();x.moveTo(0,y);x.lineTo(w,y);x.stroke()}
+x.strokeStyle="rgba(220,80,80,.5)";x.beginPath();x.moveTo(w*.08,0);x.lineTo(w*.08,h);x.stroke()}
+var t=document.createElement("canvas");t.width=w;t.height=h;var tx=t.getContext("2d");tx.drawImage(hi,0,0,w,h);
+var d=tx.getImageData(0,0,w,h),p=d.data,hiV=250-$("hs").value,lo=40,col=[[20,40,140],[25,25,25],[150,20,30]][$("hk").value];
+for(var i=0;i<p.length;i+=4){var gr=.3*p[i]+.59*p[i+1]+.11*p[i+2],a=Math.min(1,Math.max(0,(hiV-gr)/(hiV-lo)));a=a*a*(3-2*a);
+p[i]=255-(255-col[0])*a;p[i+1]=255-(255-col[1])*a;p[i+2]=255-(255-col[2])*a;p[i+3]=255}
+tx.putImageData(d,0,0);x.globalCompositeOperation="multiply";x.drawImage(t,0,0);
+$("hd").href=c.toDataURL("image/png");$("hd").style.display="inline-block"}
+$("hf").onchange=function(){var f=this.files[0];if(f)li(f).then(function(im){hi=im;hw()})};
+["hs","hk","hl"].forEach(function(i){$(i).oninput=hw;$(i).onchange=hw});
+
+/* Timetable */
+var DAYS=["Time","Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+var TT={
+"School Student":{s:["7:00-8:00","8:00-9:00","9:00-10:00*","4:00-5:00","5:00-6:00","6:30-7:30","8:00-9:00"],j:["Mathematics","Science","English","Social Science","Hindi / Odia","Computer"]},
+"Exam Prep":{s:["6:00-8:00","8:00-9:00*","9:00-12:00","12:00-1:00*","3:00-5:00","6:00-8:00","9:00-10:00"],j:["Past paper","Revise formulas","Weak topics","Mock test","Error notebook","New chapter"]},
+"College + Skills":{s:["8:00-10:00","10:00-1:00","1:00-2:00*","2:00-4:00","4:00-6:00","7:00-9:00"],j:["Classes","Self study","Typing / Excel","Coding practice","Canva design","English speaking"]},
+"Blank":{s:["","","","","",""],j:[""]}};
+var tt=ld("tt",null),ts=$("tsel");
+Object.keys(TT).forEach(function(k){var o=document.createElement("option");o.textContent=k;ts.appendChild(o)});
+function mk(k){var T=TT[k];return T.s.map(function(s,r){var br=s.slice(-1)==="*";
+return[br?s.slice(0,-1):s].concat(DAYS.slice(1).map(function(_,d){return br?"Break":(k==="Blank"?"":(d===6?"Revision":T.j[(r+d)%T.j.length]))}))})}
+if(!tt)tt=mk("School Student");
+function rt(){$("ttb").innerHTML="<tr>"+DAYS.map(function(d){return"<th>"+d+"</th>"}).join("")+"</tr>"+
+tt.map(function(r,i){return"<tr>"+r.map(function(c,j){return'<td><input data-r="'+i+'" data-c="'+j+'" value="'+esc(c).replace(/"/g,"&quot;")+'" aria-label="'+DAYS[j]+" row "+(i+1)+'"></td>'}).join("")+"</tr>"}).join("")}
+$("ttb").oninput=function(e){var t=e.target;tt[+t.dataset.r][+t.dataset.c]=t.value;sv("tt",tt)};
+ts.onchange=function(){tt=mk(ts.value);sv("tt",tt);rt()};
+$("tar").onclick=function(){tt.push(DAYS.map(function(){return""}));sv("tt",tt);rt()};
+$("tcl").onclick=function(){tt=mk("Blank");sv("tt",tt);rt()};
+$("tpr").onclick=function(){document.body.classList.add("pt");window.print();document.body.classList.remove("pt")};
+rt();
+
+/* Feedback */
+var fr_=0;
+$("fst").innerHTML=[1,2,3,4,5].map(function(i){return'<button type="button" data-i="'+i+'" aria-pressed="false" aria-label="'+i+' star'+(i>1?"s":"")+'">★</button>'}).join("");
+function fbu(){var m=$("fm").value.trim(),n=$("fn").value.trim();
+var t="Feedback for Chandan Hub"+(fr_?"\nRating: "+fr_+"/5":"")+(n?"\nName: "+n:"")+"\n\n"+m;
+$("fsend").href="https://wa.me/918280775257?text="+encodeURIComponent(t)}
+$("fst").onclick=function(e){var b=e.target.closest("button");if(!b)return;fr_=+b.dataset.i;
+$("fst").querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed",+x.dataset.i<=fr_)});fbu()};
+$("fm").oninput=fbu;$("fn").oninput=fbu;fbu();
+$("fsend").addEventListener("click",function(e){if(!$("fm").value.trim()&&!fr_){e.preventDefault();$("fh").textContent="Pick a rating or write a message first.";$("fm").focus()}else{$("fh").textContent="";fbu()}});
+
+draw();
+})();
+</script>
+<script>
+/* Chandan Student System + Career Roadmap */
+(function(){
+var $=function(i){return document.getElementById(i)};
+function ld(k,d){try{var v=localStorage.getItem(k);v=v?JSON.parse(v):d;return Array.isArray(v)?v:d}catch(e){return d}}
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function bt(x,c,f){var b=el("button",c||"",x);b.type="button";b.onclick=f;return b}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+function p2(n){return n<10?"0"+n:""+n}
+function iso(d){return d.getFullYear()+"-"+p2(d.getMonth()+1)+"-"+p2(d.getDate())}
+function pd(s){var a=s.split("-");return new Date(+a[0],+a[1]-1,+a[2])}
+function today(){return iso(new Date())}
+function addD(s,n){var d=pd(s);d.setDate(d.getDate()+n);return iso(d)}
+function dif(a,b){var x=pd(a),y=pd(b);return Math.round((Date.UTC(y.getFullYear(),y.getMonth(),y.getDate())-Date.UTC(x.getFullYear(),x.getMonth(),x.getDate()))/864e5)}
+function fm(s){return pd(s).toLocaleDateString("en-IN",{day:"numeric",month:"short"})}
+function clean(s){return(s||"").replace(/\s+/g," ").trim()}
+function cleanML(s){return(s||"").replace(/[ \t]+/g," ").replace(/\n{3,}/g,"\n\n").trim()}
+
+var rv=ld("css_rev",[]),gl=ld("css_goals",[]),ms=ld("css_mis",[]);
+
+/* subject names: reuse the same spelling/case everywhere */
+function ns(v){v=clean(v)||"General";var pool=[].concat(rv,ms).map(function(x){return x.sub});
+for(var i=0;i<pool.length;i++)if(pool[i]&&pool[i].toLowerCase()===v.toLowerCase())return pool[i];return v}
+
+/* tabs */
+var stabs=$("stabs").querySelectorAll("button");
+stabs.forEach(function(b){b.onclick=function(){stabs.forEach(function(x){var on=x===b;x.setAttribute("aria-selected",on?"true":"false");$(x.dataset.p).hidden=!on})}});
+
+/* ---------- Smart Revision ---------- */
+var NM=["Learned","1st Revision","2nd Revision","Final Revision"],GN=[1,6,14],GW=[1,3,7];
+function gaps(t){return t.w?GW:GN}
+function nextDue(t){return addD(t.d[t.d.length-1],gaps(t)[t.d.length-1])}
+function proj(t){var out=[],x=t.d[t.d.length-1];for(var i=t.d.length-1;i<3;i++){x=addD(x,gaps(t)[i]);out.push(x)}return out}
+function rvSave(){sv("css_rev",rv);rvDraw()}
+function rvDraw(){
+var L=$("rv_list"),T=today();L.textContent="";
+var items=rv.map(function(t){var st=t.d.length-1;return{t:t,st:st,nd:st<3?nextDue(t):null}});
+items.sort(function(a,b){
+if((a.nd===null)!==(b.nd===null))return a.nd===null?1:-1;
+if(a.nd!==b.nd&&a.nd!==null)return a.nd<b.nd?-1:1;
+return(b.t.w?1:0)-(a.t.w?1:0)});
+var due=items.filter(function(x){return x.nd&&x.nd<=T}).length;
+var late=items.filter(function(x){return x.nd&&x.nd<T}).length;
+var weak=items.filter(function(x){return x.t.w&&x.st<3}).length;
+$("rv_sum").textContent=!rv.length?"No topics yet. Add the first thing you learned today.":
+(due?"Revise today: "+due+" topic"+(due>1?"s":"")+(late?" ("+late+" overdue)":""):"Nothing due today. Keep going.")+(weak?"\nWeak topics to focus on: "+weak:"");
+items.forEach(function(x){
+var t=x.t,isW=t.w&&x.st<3,c=el("div","sc"+(isW?" weak":"")),h=el("div","sh");
+h.appendChild(el("b","",t.top));h.appendChild(el("span","pl",t.sub||"General"));
+if(isW)h.appendChild(el("span","pl wk","⚠ Weak: revise sooner"));
+c.appendChild(h);
+var P=proj(t),s=el("div","st"),i,k,tx;
+for(i=0;i<4;i++){k="";
+if(i<=x.st){k="done";tx="✓ "+NM[i]+" · "+fm(t.d[i])}
+else{tx=NM[i]+" · "+fm(P[i-x.st-1]);
+if(i===x.st+1){if(x.nd<T){k="late";tx+=" (overdue)"}else if(x.nd===T){k="due";tx+=" (today)"}}}
+s.appendChild(el("span","pl "+k,tx))}
+c.appendChild(s);
+var r=el("div","row");
+if(x.st<3)r.appendChild(bt("Mark "+NM[x.st+1]+" done","sm",function(){t.d.push(today());rvSave()}));
+else r.appendChild(el("small","","All revisions done. Well done!"));
+r.appendChild(bt(t.w?"Remove weak mark":"Mark as weak","sm ghost",function(){t.w=!t.w;rvSave()}));
+r.appendChild(bt("Delete","sm ghost",function(){rv=rv.filter(function(y){return y!==t});rvSave()}));
+c.appendChild(r);L.appendChild(c)})}
+$("rv_date").value=today();$("rv_date").max=today();
+function rvAdd(){
+var tp=clean($("rv_top").value);if(!tp){$("rv_top").focus();return}
+var dt=$("rv_date").value||today();if(dt>today())dt=today();
+rv.unshift({id:uid(),sub:ns($("rv_sub").value),top:tp,d:[dt],w:$("rv_weak").checked});
+$("rv_top").value="";$("rv_weak").checked=false;rvSave()}
+$("rv_add").onclick=rvAdd;
+$("rv_top").onkeydown=function(e){if(e.key==="Enter")rvAdd()};
+
+/* ---------- Study Goal -> Daily Plan ---------- */
+var ST=[
+["Read & understand","Read it slowly, underline key terms and examples.",3],
+["Write short notes","Make a one-page summary with formulas and key points.",1.5],
+["Practice questions","Solve questions on paper, not just by reading.",3],
+["Revise & fix mistakes","Go through your notes and redo the questions you got wrong.",1.5],
+["Final self-test","Attempt a timed test and check every answer.",1]];
+function mkTasks(n,start){
+var cum=[0],i,d,out=[];
+for(i=0;i<5;i++)cum.push(cum[i]+ST[i][2]/10);
+for(d=0;d<n;d++){
+var a=d/n,b=(d+1)/n,ov=[],best=0,ids=[];
+for(i=0;i<5;i++){ov.push(Math.min(b,cum[i+1])-Math.max(a,cum[i]));if(ov[i]>ov[best])best=i}
+for(i=0;i<5;i++)if(ov[i]>0.25*(b-a)||i===best)ids.push(i);
+if(n===1)ids=[0,1,2,3,4];
+else if(d===n-1&&ids.indexOf(4)<0)ids.push(4);
+var tx=ids.map(function(j){return ST[j][0]}).join(" + ");
+if(d>0&&out[d-1].base===tx)tx+=" (continued)";
+out.push({base:ids.map(function(j){return ST[j][0]}).join(" + "),date:addD(start,d),text:tx,detail:ids.map(function(j){return ST[j][1]}).join(" "),done:false})}
+out.forEach(function(o){delete o.base});return out}
+var opn={};
+function glSave(){sv("css_goals",gl);glDraw()}
+function taskRow(g,t,sd){
+var l=el("label","gt"),cb=document.createElement("input");cb.type="checkbox";cb.checked=t.done;
+cb.onchange=function(){t.done=cb.checked;glSave()};
+var s=el("span"),lab=sd?"Day "+(g.tasks.indexOf(t)+1)+" · "+fm(t.date)+": ":"";
+s.appendChild(el("b","",lab+t.text));s.appendChild(el("small","",t.detail));
+l.appendChild(cb);l.appendChild(s);return l}
+function glDraw(){
+var L=$("gl_list"),T=today();L.textContent="";
+if(!gl.length){L.appendChild(el("div","ob","No goals yet. Add one above, like “Accountancy Chapter 3” in 5 days."));return}
+gl.forEach(function(g){
+var done=g.tasks.filter(function(t){return t.done}).length,tot=g.tasks.length,pc=Math.round(done*100/tot);
+var c=el("div","sc"),h=el("div","sh");h.appendChild(el("b","",g.name));
+var dn=dif(g.start,T)+1;
+h.appendChild(el("span","pl",dn<1?"Starts "+fm(g.start):dn>g.n?"Plan period over":"Day "+dn+" of "+g.n));
+c.appendChild(h);
+var bar=el("div","bar"),fill=el("i");fill.style.width=pc+"%";bar.appendChild(fill);
+bar.setAttribute("role","progressbar");bar.setAttribute("aria-valuenow",pc);bar.setAttribute("aria-valuemin","0");bar.setAttribute("aria-valuemax","100");bar.setAttribute("aria-label","Progress for "+g.name);
+c.appendChild(bar);c.appendChild(el("p","pg",pc+"% complete · "+done+" of "+tot+" tasks done"));
+var td=g.tasks.filter(function(t){return t.date===T}),miss=g.tasks.filter(function(t){return t.date<T&&!t.done});
+if(td.length){c.appendChild(el("div","tl","Today's task"));td.forEach(function(t){c.appendChild(taskRow(g,t,false))})}
+else if(done===tot)c.appendChild(el("div","tl","Goal complete. Great consistency!"));
+if(miss.length){var r=el("div","row");r.appendChild(el("small","","Missed: "+miss.length+" task"+(miss.length>1?"s":"")));
+r.appendChild(bt("Move missed tasks to today","sm",function(){miss.forEach(function(t){t.date=T});glSave()}));c.appendChild(r)}
+var dt=document.createElement("details");dt.open=!!opn[g.id];dt.ontoggle=function(){opn[g.id]=dt.open};
+dt.appendChild(el("summary","","See full plan"));
+g.tasks.forEach(function(t){dt.appendChild(taskRow(g,t,true))});c.appendChild(dt);
+var r2=el("div","row");r2.appendChild(bt("Delete goal","sm ghost",function(){gl=gl.filter(function(y){return y!==g});glSave()}));c.appendChild(r2);
+L.appendChild(c)})}
+function glAdd(){
+var nm=clean($("gl_name").value),n=Math.floor(+$("gl_days").value);
+if(!nm){$("gl_name").focus();return}
+if(!(n>=1))n=1;if(n>60)n=60;$("gl_days").value=n;
+var st=today();gl.unshift({id:uid(),name:nm,n:n,start:st,tasks:mkTasks(n,st)});
+$("gl_name").value="";glSave()}
+$("gl_add").onclick=glAdd;
+$("gl_name").onkeydown=function(e){if(e.key==="Enter")glAdd()};
+
+/* ---------- Mistake Book ---------- */
+var WHY=["Concept not clear","Silly mistake","Calculation error","Forgot formula or rule","Misread the question","Ran out of time","Had not studied it"];
+function opt(sel,v,t){var o=el("option","",t||v);o.value=v;sel.appendChild(o)}
+WHY.forEach(function(w){opt($("ms_why"),w)});
+function fill(sel,vals,all){var cur=sel.value;sel.textContent="";opt(sel,"",all);vals.forEach(function(v){opt(sel,v)});sel.value=vals.indexOf(cur)>-1?cur:""}
+function msSave(){sv("css_mis",ms);msDraw()}
+function filt(){var s=$("ms_fs").value,r=$("ms_fr").value;return ms.filter(function(m){return(!s||m.sub===s)&&(!r||m.why===r)})}
+var rq=null;
+function msDraw(){
+fill($("ms_fs"),ms.map(function(m){return m.sub}).filter(function(v,i,a){return a.indexOf(v)===i}).sort(),"All subjects");
+fill($("ms_fr"),WHY.filter(function(w){return ms.some(function(m){return m.why===w})}),"All reasons");
+$("ms_ctl").hidden=!!rq;$("ms_list").hidden=!!rq;$("ms_mode").hidden=!rq;
+var left=ms.filter(function(m){return m.ok<2}).length,cnt={},top="",tk=0;
+ms.forEach(function(m){cnt[m.why]=(cnt[m.why]||0)+1;if(cnt[m.why]>tk){tk=cnt[m.why];top=m.why}});
+$("ms_stat").textContent=ms.length?ms.length+" mistake"+(ms.length>1?"s":"")+" saved · "+left+" still to revise\nMost common reason: "+top+" ("+tk+")":"No mistakes saved yet. Every mistake you save is one you can stop repeating.";
+if(rq){rqDraw();return}
+var F=filt(),n=F.filter(function(m){return m.ok<2}).length;
+var rb=$("ms_rev");rb.textContent="Revise My Mistakes ("+n+")";rb.disabled=!n;rb.style.opacity=n?"1":".5";
+var L=$("ms_list");L.textContent="";
+if(ms.length&&!F.length)L.appendChild(el("div","ob","No mistakes match this filter."));
+F.forEach(function(m){
+var mast=m.ok>=2,c=el("div","sc"),h=el("div","sh");
+c.style.opacity=mast?".7":"1";
+h.appendChild(el("b","",m.top||m.sub));h.appendChild(el("span","pl",m.sub));h.appendChild(el("span","pl late",m.why));
+if(mast)h.appendChild(el("span","pl done","✓ Mastered"));
+c.appendChild(h);c.appendChild(el("p","qt",m.q));
+var dt=document.createElement("details");dt.appendChild(el("summary","","Show correct answer"));
+dt.appendChild(el("p","qt",m.a||"(No answer saved)"));c.appendChild(dt);
+var r=el("div","row");
+r.appendChild(bt(mast?"Practise again":"Mark as mastered","sm",function(){m.ok=mast?0:2;msSave()}));
+r.appendChild(bt("Delete","sm ghost",function(){ms=ms.filter(function(y){return y!==m});msSave()}));
+r.appendChild(el("small","","Saved "+fm(m.date)));c.appendChild(r);L.appendChild(c)})}
+$("ms_add").onclick=function(){
+var q=cleanML($("ms_q").value);if(!q){$("ms_q").focus();return}
+ms.unshift({id:uid(),sub:ns($("ms_sub").value),top:clean($("ms_top").value),q:q,a:cleanML($("ms_a").value),why:$("ms_why").value,date:today(),ok:0});
+$("ms_q").value="";$("ms_a").value="";$("ms_top").value="";msSave()};
+$("ms_fs").onchange=$("ms_fr").onchange=msDraw;
+$("ms_rev").onclick=function(){
+var F=filt().filter(function(m){return m.ok<2});if(!F.length)return;
+var ids=F.map(function(m){return m.id}),i,j,x;
+for(i=ids.length-1;i>0;i--){j=Math.floor(Math.random()*(i+1));x=ids[i];ids[i]=ids[j];ids[j]=x}
+rq={ids:ids,i:0,right:0,again:0,show:false};msDraw()};
+function rqDraw(){
+var M=$("ms_mode");M.textContent="";
+function exit(){rq=null;msDraw()}
+if(rq.i>=rq.ids.length){
+var c0=el("div","sc");c0.appendChild(el("div","big","Revision finished."));
+c0.appendChild(el("p","pg",rq.right+" of "+rq.ids.length+" marked right"+(rq.again?" · "+rq.again+" still confusing. They will come back next time.":".")));
+var r0=el("div","row");r0.appendChild(bt("Back to Mistake Book","",exit));c0.appendChild(r0);M.appendChild(c0);return}
+var m=ms.filter(function(y){return y.id===rq.ids[rq.i]})[0];
+if(!m){rq.i++;rqDraw();return}
+var c=el("div","sc"),h=el("div","sh");
+h.appendChild(el("b","","Question "+(rq.i+1)+" of "+rq.ids.length));h.appendChild(el("span","pl",m.sub));if(m.top)h.appendChild(el("span","pl",m.top));
+c.appendChild(h);c.appendChild(el("div","big",m.q));
+function next(good){if(good){m.ok++;rq.right++}else{m.ok=0;rq.again++}rq.i++;rq.show=false;sv("css_mis",ms);rqDraw()}
+var r=el("div","row");
+if(!rq.show){r.appendChild(bt("Show answer","",function(){rq.show=true;rqDraw()}))}
+else{c.appendChild(el("div","ob",(m.a?"Correct answer:\n"+m.a:"No answer saved for this one.")+"\n\nWhy it went wrong: "+m.why));
+r.appendChild(bt("Got it ✓","",function(){next(true)}));
+r.appendChild(bt("Still confusing","ghost",function(){next(false)}))}
+r.appendChild(bt("Exit","sm ghost",exit));c.appendChild(r);M.appendChild(c)}
+
+
+rvDraw();glDraw();msDraw();
+})();
+</script>
+<script>
+/* AI Study Assistant */
+(function(){
+var AI_ENDPOINT=""; /* optional: paste your Worker URL here to answer inside the site */
+var $=function(i){return document.getElementById(i)};
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+var MODES={
+explain:"Explain this concept in very simple language, like to a friend. Use one everyday example (Indian context, rupees where useful). Finish with a 2-line summary.",
+steps:"Solve or explain this step by step. Number every step, give the reason for each step, and show the final answer clearly.",
+doubt:"Answer my doubt clearly. Give the short answer first, then the reason, then one example. If my doubt has a wrong assumption, politely correct it.",
+revise:"Make a quick revision sheet: key points, important terms or formulas, common exam mistakes, and 5 practice questions with answers at the end.",
+quiz:"Quiz me with 5 questions on this, one at a time. Wait for my answer before the next question and tell me what was right or wrong."};
+var LANG={Hinglish:"Hinglish (simple Hindi written in English letters)",English:"simple English",Hindi:"simple Hindi (Devanagari)"};
+function build(){
+var q=$("ai_q").value.replace(/\s+/g," ").trim().slice(0,1000);
+return {q:q,text:"You are a friendly, patient AI study helper for a "+$("ai_cls").value+" student in India. Subject: "+$("ai_sub").value+".\nLanguage: "+LANG[$("ai_lang").value]+".\nTask: "+MODES[$("ai_mode").value]+"\nRules: Use simple words and short sentences. Do not only give the final answer for homework; show how to think. If you are not sure, say so. For important exam points, remind me to confirm with my teacher or textbook.\n\nMy question or topic: "+q}}
+function upd(){var e=encodeURIComponent(build().text);$("ai_cl").href="https://claude.ai/new?q="+e;$("ai_gp").href="https://chatgpt.com/?q="+e}
+function need(ev){if(!build().q){ev.preventDefault();$("ai_hint").textContent="Type your question first.";$("ai_q").focus();return false}return true}
+["ai_sub","ai_cls","ai_mode","ai_lang"].forEach(function(i){$(i).onchange=upd});
+$("ai_q").oninput=upd;
+$("ai_cl").onclick=$("ai_gp").onclick=function(ev){if(need(ev))upd()};
+$("ai_cp").onclick=function(){
+var b=build();if(!b.q){$("ai_hint").textContent="Type your question first.";$("ai_q").focus();return}
+function ok(){$("ai_hint").textContent="Prompt copied. Paste it in any AI app."}
+if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(b.text).then(ok,function(){$("ai_hint").textContent="Copy failed. Select the text and copy it yourself."});
+else $("ai_hint").textContent="Copy is not available in this browser."};
+var ex=[["Accountancy","Explain depreciation with an example"],["Economics","What is opportunity cost?"],["Business Studies","What are the functions of management?"],["Maths","Find 15% of 480 step by step"],["English","How do I write a formal letter?"]];
+ex.forEach(function(x){var b=el("button","",x[1]);b.type="button";b.onclick=function(){$("ai_sub").value=x[0];$("ai_q").value=x[1];upd()};$("ai_ch").appendChild(b)});
+/* optional in-site answers (needs a Worker, see optional-backend/) */
+if(AI_ENDPOINT){
+var go=$("ai_go");go.hidden=false;
+$("ai_hint").textContent="Tap Ask AI here for an answer on this page, or open it in an AI app.";
+go.onclick=function(){
+var b=build();if(!b.q){$("ai_hint").textContent="Type your question first.";$("ai_q").focus();return}
+var out=$("ai_out");out.hidden=false;out.textContent="";out.appendChild(el("div","tl","AI answer"));out.appendChild(el("p","qt","Thinking…"));
+go.disabled=true;
+var ctl=new AbortController(),to=setTimeout(function(){ctl.abort()},30000);
+fetch(AI_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},signal:ctl.signal,
+body:JSON.stringify({subject:$("ai_sub").value,cls:$("ai_cls").value,mode:$("ai_mode").value,lang:$("ai_lang").value,question:b.q})})
+.then(function(r){return r.json().then(function(d){if(!r.ok||!d.answer)throw new Error(d.error||"fail");return d.answer})})
+.then(function(a){out.textContent="";out.appendChild(el("div","tl","AI answer"));out.appendChild(el("p","qt",a));
+out.appendChild(el("small","","AI study helper. It can make mistakes, so check important answers with your textbook or teacher."))})
+.catch(function(){out.textContent="";out.appendChild(el("div","tl","AI answer"));out.appendChild(el("p","qt","The AI helper is not reachable right now. Please use the Ask in Claude or Ask in ChatGPT buttons instead."))})
+.then(function(){clearTimeout(to);setTimeout(function(){go.disabled=false},4000)})}}
+upd()})();
+</script>
+<script>
+/* Career Explore */
+(function(){
+var $=function(i){return document.getElementById(i)};
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function bt(x,c,f){var b=el("button",c||"",x);b.type="button";b.onclick=f;return b}
+function today(){var d=new Date();return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)}
+function dif(a,b){var x=a.split("-"),y=b.split("-");return Math.round((Date.UTC(+y[0],+y[1]-1,+y[2])-Date.UTC(+x[0],+x[1]-1,+x[2]))/864e5)}
+function goTo(n){var rm=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;n.scrollIntoView({behavior:rm?"auto":"smooth",block:"start"})}
+
+var AR={fin:"💰 Finance & Accounting",bank:"🏦 Banking & Finance",biz:"📊 Business & Management",tech:"💻 Technology",law:"⚖️ Law & Public Services",creative:"🎨 Creative & Media"};
+var AO=["fin","bank","biz","tech","law","creative"];
+var LB=["School","Required Education","Important Skills","Practical Experience","Career"];
+var C=[
+{id:"ca",a:"fin",n:"Chartered Accountant (CA)",
+ed:"Class 12 pass to appear for CA Foundation. Commerce with Accountancy is the most helpful. Check ICAI for the latest rules.",
+co:"CA course by ICAI: Foundation, Intermediate and Final, plus practical training (articleship).",
+sk:["Accounting","Taxation","Auditing","Excel and Tally","Analytical thinking","Discipline"],
+cm:"Very high. Many years of focused study plus training. Usually around 4.5 to 5 years after Class 12.",
+wk:"Analytical and detail-focused, mostly desk-based with client interaction.",
+op:"Audit firms, company finance teams, tax consulting, own practice.",
+ev:"Office, audit firm or company. Very busy near tax and audit deadlines.",
+fu:"Specialisations like forensic audit, risk management or international taxation.",
+rd:["Complete Class 12. Accountancy, Maths and Economics help.","Register with ICAI and clear Foundation, Intermediate and Final.","Build accounting, taxation and Excel skills.","Complete articleship (practical training) with a practising CA.","Work in audit, finance, tax or start your own practice."],
+ms:["Clear CA Foundation","Clear CA Intermediate","Complete articleship","Clear CA Final"]},
+{id:"acc",a:"fin",n:"Accountant & Tax Consultant",
+ed:"Class 12. B.Com is the usual path.",
+co:"B.Com or similar degree, plus short courses in Tally, GST and income tax.",
+sk:["Accountancy","Tally","Excel","GST and income tax basics","Communication"],
+cm:"Moderate. About 3 years of graduation plus short courses.",
+wk:"Detail-focused, mostly desk-based, with regular client contact.",
+op:"Companies, accounting firms, shops and small businesses, own tax filing practice.",
+ev:"Office or own small practice. Busy during tax filing season.",
+fu:"CA, CMA, CS, M.Com, MBA Finance, GST and tax certification courses.",
+rd:["Complete Class 12, ideally with Accountancy.","Do B.Com or a similar degree.","Learn Tally, Excel, GST and income tax basics.","Work as an assistant or intern in an accounts office or tax practice.","Work as an accountant or start your own tax and accounts service."],
+ms:["Finish B.Com","Learn Tally and GST","Complete an internship","Start tax and accounts work"]},
+{id:"bank",a:"bank",n:"Bank Officer / Clerk",
+ed:"Graduation in any stream for most bank exams. Check each exam notification for the exact rule.",
+co:"Any graduation, then bank recruitment exams such as IBPS and SBI exams.",
+sk:["Quantitative aptitude","Reasoning","English","General awareness","Communication"],
+cm:"Moderate to high. Exams are competitive and need months of regular practice.",
+wk:"Customer-facing and process-driven.",
+op:"Public sector banks, private banks, cooperative banks and financial institutions.",
+ev:"Bank branch with regular working hours and targets.",
+fu:"Banking exams from IIBF such as JAIIB and CAIIB, and MBA Finance.",
+rd:["Complete Class 12 and build a strong base in Maths and English.","Finish graduation in any stream.","Practise aptitude, reasoning, English and current affairs daily.","Take mock tests regularly and apply through official notifications.","Clear the exams and interview, then join as an officer or clerk."],
+ms:["Complete graduation","Choose a target exam","Clear prelims and mains","Interview and joining"]},
+{id:"fa",a:"bank",n:"Financial Analyst",
+ed:"Graduation in commerce, economics, maths or a related field. MBA Finance helps for many roles.",
+co:"B.Com, BBA, BSc Economics or similar, plus certifications such as NISM, CFA or FRM.",
+sk:["Financial analysis","Excel","Valuation basics","Research","Communication"],
+cm:"High. Graduation plus certifications and continuous learning.",
+wk:"Analytical, number-focused and research-based.",
+op:"Banks, investment firms, brokerages, corporate finance teams and consulting firms.",
+ev:"Office-based. Can be fast-paced and deadline-driven.",
+fu:"CFA, FRM, MBA Finance, advanced Excel and data analysis.",
+rd:["Complete Class 12 with Accountancy, Economics or Maths.","Do B.Com, BBA, Economics or a related degree.","Learn financial statements, Excel and market basics.","Do internships at a bank, brokerage or finance team.","Work as an analyst and grow into senior finance roles."],
+ms:["Finish graduation","Learn Excel and financial statements","Complete a finance internship","Start CFA, NISM or MBA if needed"]},
+{id:"mgr",a:"biz",n:"Business Manager",
+ed:"Class 12, then BBA, B.Com or any graduation. MBA is common for senior roles.",
+co:"BBA, B.Com, MBA. MBA entry is through tests such as CAT, XAT, CMAT or state tests.",
+sk:["Leadership","Communication","Problem-solving","Business knowledge","Teamwork"],
+cm:"Moderate to high. 3 years of graduation and an optional 2-year MBA.",
+wk:"People-focused with a lot of planning and decision-making.",
+op:"Operations, marketing, HR, sales and finance roles in companies, and consulting.",
+ev:"Corporate office with teams and meetings.",
+fu:"MBA specialisations, executive programmes and certifications like project management.",
+rd:["Complete Class 12 and take part in school or college activities that build leadership.","Do BBA, B.Com or another graduation.","Build communication, Excel and business knowledge.","Do internships and join college clubs or events.","Start in a junior role and grow into management, with an MBA if needed."],
+ms:["Finish graduation","Complete an internship","Prepare for MBA entrance (optional)","First junior management role"]},
+{id:"ent",a:"biz",n:"Entrepreneur",
+ed:"No fixed qualification. Business knowledge and practical skills help.",
+co:"Any graduation such as B.Com or BBA helps, plus short courses in marketing, finance and GST.",
+sk:["Problem-solving","Communication","Money management","Selling","Leadership","Digital skills"],
+cm:"Flexible but demanding. Learning never stops and results take time.",
+wk:"Self-driven and risk-taking, with many roles at once.",
+op:"Own business, startup, freelancing or growing a family business.",
+ev:"Own shop, office, online or remote. You set the schedule but carry the responsibility.",
+fu:"Entrepreneurship programmes, incubators, mentors and an optional MBA.",
+rd:["Start small while in school: sell, organise or create something.","Study any graduation that fits your idea, such as B.Com or BBA.","Learn marketing, money management, GST basics and customer handling.","Test your idea with a small project or first customers.","Grow it into a business, startup or freelance career."],
+ms:["Pick a business idea","Make a simple plan","Get your first customer","Learn from results and improve"]},
+{id:"dev",a:"tech",n:"Software Developer",
+ed:"Class 12. Maths helps. Then a computer-related degree, or strong self-learning with projects.",
+co:"B.Tech or BE in Computer Science or IT, BCA, B.Sc Computer Science, or equivalent skills and projects.",
+sk:["Programming","Logical thinking","Problem-solving","Teamwork","Continuous learning"],
+cm:"High. 3 to 4 years of degree plus continuous learning.",
+wk:"Logical, problem-solving and computer-based.",
+op:"IT companies, startups, product companies and freelancing.",
+ev:"Office or remote, working in teams on projects.",
+fu:"Specialisations in AI, cloud or cybersecurity, or a master's degree.",
+rd:["Complete Class 12 and try basic coding early.","Do a computer-related degree such as B.Tech, BCA or B.Sc.","Learn one programming language well and practise problem-solving.","Build projects and do internships.","Start as a developer and specialise over time."],
+ms:["Learn a first programming language","Build 3 small projects","Complete an internship","First developer job"]},
+{id:"da",a:"tech",n:"Data Analyst",
+ed:"Graduation, ideally with maths, statistics, commerce, economics or computers.",
+co:"Any relevant degree plus data courses in Excel, SQL, Python or Power BI.",
+sk:["Excel","SQL","Statistics basics","Data visualisation","Communication"],
+cm:"Moderate to high. Graduation plus focused skill courses.",
+wk:"Analytical, working with numbers, reports and dashboards.",
+op:"Companies in finance, retail, technology, consulting and healthcare.",
+ev:"Office or remote, working with business teams.",
+fu:"Data science, machine learning, analytics MBA and advanced statistics.",
+rd:["Complete Class 12 and build a base in Maths or Economics.","Finish a relevant graduation.","Learn Excel, SQL and a visualisation tool.","Practise on real datasets and do an internship.","Start as a junior analyst and grow into senior analytics roles."],
+ms:["Learn advanced Excel","Learn SQL","Build a small data portfolio","First analyst role"]},
+{id:"law",a:"law",n:"Lawyer",
+ed:"After Class 12 (any stream) through a 5-year integrated law course, or any graduation followed by a 3-year LLB.",
+co:"BA LLB, BBA LLB, B.Com LLB or LLB. Many colleges use entrance exams such as CLAT or AILET.",
+sk:["Reasoning","Reading and writing","Research","Communication","General knowledge"],
+cm:"High. About 5 years of study plus practice.",
+wk:"Reading, research, writing and arguing.",
+op:"Courts, law firms, company legal teams, tax and corporate law, and judiciary exams.",
+ev:"Courts and offices, with long reading and preparation hours.",
+fu:"LLM, specialisations such as corporate, tax or cyber law, and judiciary preparation.",
+rd:["Complete Class 12 and build reading, writing and reasoning habits.","Clear a law entrance exam and join a law course.","Build research, drafting and speaking skills.","Do internships with advocates or law firms every year.","Enrol with the Bar Council, clear the AIBE and start practising."],
+ms:["Clear a law entrance exam","Complete law degree","Complete internships","Bar Council enrolment"]},
+{id:"civil",a:"law",n:"Civil Services Officer",
+ed:"Graduation in any stream.",
+co:"Any degree, then the UPSC Civil Services Examination. State services have their own exams. Check the official site for eligibility and attempt limits.",
+sk:["General knowledge","Reasoning","Writing","Current affairs","Decision-making","Patience"],
+cm:"Very high. Needs long, focused and consistent preparation.",
+wk:"Administration, policy and public service.",
+op:"IAS, IPS, IFS and other central services, plus state civil services.",
+ev:"Government offices and field postings. Transfers are common.",
+fu:"Training at national academies and public policy courses.",
+rd:["Complete Class 12 and start reading newspapers and basic civics.","Finish graduation in any stream.","Build general knowledge, answer writing and current affairs skills.","Take mock tests and practise previous year papers.","Clear prelims, mains and interview, then join the service."],
+ms:["Complete graduation","Learn the exam syllabus","Clear prelims","Clear mains and interview"]},
+{id:"des",a:"creative",n:"Graphic / UI Designer",
+ed:"Class 12 (any stream), then a design degree or diploma, or skill-based learning with a strong portfolio.",
+co:"B.Des, BFA, design diplomas or online courses. Some institutes use tests such as UCEED or NID DAT.",
+sk:["Creativity","Canva and Figma","Typography and colour","Communication","Portfolio building"],
+cm:"Moderate. Skills and portfolio matter a lot.",
+wk:"Creative, visual and client-focused.",
+op:"Agencies, startups, product companies, branding and freelancing.",
+ev:"Studio, office or remote with deadline-based projects.",
+fu:"UI/UX design, motion graphics, brand design and 3D.",
+rd:["Complete Class 12 and practise drawing and design early.","Do a design course, degree or learn through online courses.","Learn Canva, Figma, colour and typography.","Build a portfolio with real or practice projects.","Start in an agency or as a freelancer and grow your style."],
+ms:["Learn design basics","Build 5 portfolio projects","Get first client or internship","Publish a portfolio"]},
+{id:"cc",a:"creative",n:"Content Creator / Video Editor",
+ed:"No fixed qualification. Skills and consistency matter.",
+co:"Any graduation helps, plus courses in video editing, writing and social media.",
+sk:["Creativity","Communication","Video editing","Writing","Digital tools","Consistency"],
+cm:"Flexible. Needs regular practice and patience for results.",
+wk:"Creative, public-facing and self-driven.",
+op:"YouTube and social media, agencies, freelancing, brand work and media houses.",
+ev:"Home studio, agency or newsroom. Flexible but deadline-driven.",
+fu:"Digital marketing, filmmaking, journalism and animation.",
+rd:["Start creating small content while studying.","Complete your education and learn editing, scripting and storytelling.","Practise a content schedule and learn what your audience likes.","Work on projects for others or build your own channel.","Grow into a creator, editor, agency role or media career."],
+ms:["Pick a niche","Publish 10 pieces of content","Learn editing well","First paid or brand project"]}];
+var BY={};C.forEach(function(c){BY[c.id]=c});
+
+/* streams */
+var SM={"Commerce":["fin","bank","biz","law"],"Science":["tech","bank","biz","law"],"Arts & Humanities":["law","creative","biz","bank"]};
+var cur="";
+function drawStreams(){
+document.querySelectorAll("#cx_streams .cc").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.s===cur?"true":"false")});
+document.querySelectorAll("#cx_areas .cc").forEach(function(a){
+var rec=cur&&SM[cur].indexOf(a.dataset.a)>-1;
+a.classList.toggle("rec",!!rec);a.classList.toggle("dim",!!cur&&!rec);a.querySelector(".pl").hidden=!rec});
+$("cx_shint").textContent=cur?cur+": the highlighted areas are common starting points. Most careers are open to students from any stream. Tap the stream again to clear.":"Tap a stream to highlight the career areas below that are common starting points. Most careers are open to students from any stream."}
+document.querySelectorAll("#cx_streams .cc").forEach(function(b){b.onclick=function(){cur=cur===b.dataset.s?"":b.dataset.s;drawStreams()}});
+
+/* career selects */
+function fillSel(sel,ph){sel.textContent="";var o=el("option","",ph);o.value="";sel.appendChild(o);
+AO.forEach(function(a){var g=el("optgroup");g.label=AR[a];C.filter(function(c){return c.a===a}).forEach(function(c){var op=el("option","",c.n);op.value=c.id;g.appendChild(op)});sel.appendChild(g)})}
+fillSel($("cx_sel"),"Choose a career");
+["cx_c1","cx_c2","cx_c3"].forEach(function(i,k){fillSel($(i),"Select career "+(k+1))});
+C.forEach(function(c){var o=el("option");o.value=c.n;$("cx_names").appendChild(o)});
+
+/* career chips inside areas */
+function openRoad(id){$("cx_sel").value=id;road();var R=$("cx_road");goTo(R);try{R.focus({preventScroll:true})}catch(e){}}
+document.querySelectorAll("#cx_areas .cc").forEach(function(a){
+var box=a.querySelector(".chips");
+C.filter(function(c){return c.a===a.dataset.a}).forEach(function(c){box.appendChild(bt(c.n,"",function(){openRoad(c.id)}))})});
+
+/* roadmap */
+function road(){
+var c=BY[$("cx_sel").value],R=$("cx_road");R.textContent="";
+if(!c){R.appendChild(el("p","","Choose a career above to see its roadmap, important skills and milestones."));return}
+var h=el("div","sh");h.appendChild(el("b","",c.n));h.appendChild(el("span","pl",AR[c.a]));R.appendChild(h);
+R.appendChild(el("h4","","Recommended roadmap"));
+var ol=el("ol","rm");c.rd.forEach(function(t,i){var li=el("li");li.appendChild(el("b","",LB[i]));li.appendChild(document.createTextNode(t));ol.appendChild(li)});R.appendChild(ol);
+R.appendChild(el("h4","","Important skills"));
+var sk=el("div");c.sk.forEach(function(s){var p=el("span","pl",s);p.style.margin="0 6px 6px 0";p.style.color="var(--ink)";sk.appendChild(p)});R.appendChild(sk);
+R.appendChild(el("h4","","Major milestones"));
+var ul=el("ul");c.ms.forEach(function(m){ul.appendChild(el("li","",m))});R.appendChild(ul);
+var r=el("div","row");r.appendChild(bt("Add to My Career Plan","",function(){
+$("pl_t").value=c.n;if(!$("pl_m").value)$("pl_m").value=c.ms[0];plan.t=c.n;if(!plan.m)plan.m=c.ms[0];savePlan();goTo($("cx-plan"))}));
+r.appendChild(bt("Compare with others","ghost",function(){var s=["cx_c1","cx_c2","cx_c3"].map($).filter(function(x){return!x.value})[0]||$("cx_c1");
+if(["cx_c1","cx_c2","cx_c3"].every(function(i){return $(i).value!==c.id}))s.value=c.id;cmp();goTo($("cx-compare"))}));
+R.appendChild(r);
+R.appendChild(el("p","note","This is general guidance. Rules, fees and exams change, so confirm details on the official website or with your teacher before you decide."))}
+$("cx_sel").onchange=road;road();
+
+/* compare */
+var ROWS=[["Education required","ed"],["Course or qualification","co"],["Important skills","sk"],["Study commitment","cm"],["Work type","wk"],["Career opportunities","op"],["Typical work environment","ev"],["Further learning options","fu"]];
+function cmp(){
+var ids=["cx_c1","cx_c2","cx_c3"].map(function(i){return $(i).value}).filter(function(v,i,a){return v&&a.indexOf(v)===i});
+var O=$("cx_cmp");O.textContent="";
+if(ids.length<2){O.appendChild(el("div","ob","Pick at least 2 careers to compare. You can compare up to 3."));return}
+var hd=el("div","cxg");hd.style.marginBottom="12px";ids.forEach(function(id){var c=BY[id],d=el("div","cc");d.appendChild(el("b","",c.n));d.appendChild(el("small","",AR[c.a]));hd.appendChild(d)});O.appendChild(hd);
+ROWS.forEach(function(r){var box=el("div","sc");box.appendChild(el("h4","",r[0]));box.firstChild.style.marginTop="0";
+var g=el("div","cxg");ids.forEach(function(id){var c=BY[id],v=c[r[1]],cell=el("div","cell");cell.appendChild(el("small","",c.n));cell.appendChild(el("p","",Array.isArray(v)?v.join(", "):v));g.appendChild(cell)});
+box.appendChild(g);O.appendChild(box)})}
+["cx_c1","cx_c2","cx_c3"].forEach(function(i){$(i).onchange=cmp});cmp();
+
+/* quiz */
+var Q=[
+["Subjects you enjoy",[["Accountancy",{fin:2,bank:1,biz:1}],["Economics",{bank:2,biz:1,fin:1,law:1}],["Business Studies",{biz:2,fin:1,bank:1}],["Maths",{tech:2,bank:2,fin:1}],["Computers or Science",{tech:3}],["English or languages",{creative:2,law:1,biz:1}],["Social science or civics",{law:2}],["Art or drawing",{creative:3}]]],
+["Your interests",[["Money and markets",{bank:3,fin:1}],["Numbers and accounts",{fin:3,bank:1}],["Starting my own business",{biz:3}],["Computers and apps",{tech:3}],["Law, justice and rules",{law:3}],["Helping society or public service",{law:3}],["Design, videos and social media",{creative:3}]]],
+["Your strengths",[["Good with numbers",{fin:2,bank:2,tech:1}],["Logical thinking",{tech:3,law:1}],["Communication and speaking",{biz:2,law:2,bank:1,creative:1}],["Creativity",{creative:3,biz:1}],["Leadership",{biz:3,law:1}],["Patience and attention to detail",{fin:3,bank:1,law:1}],["Reading and writing",{law:2,creative:2}]]],
+["Preferred type of work",[["Analysing and calculating",{fin:2,bank:1,tech:1}],["Working with people",{biz:2,bank:2,law:1}],["Building or creating things",{tech:2,creative:3}],["Research and reading",{law:2,tech:1}],["Leading and deciding",{biz:3,law:1}]]],
+["Skills you want to develop",[["Programming",{tech:3}],["Excel and Tally",{fin:3,bank:1}],["Communication and English",{biz:1,law:1,bank:1,creative:1}],["Design tools",{creative:3}],["Leadership",{biz:2}],["Research and writing",{law:2,creative:1}],["Data and analysis",{tech:2,bank:1,fin:1}]]],
+["Work environment you prefer",[["Office with a team",{biz:2,fin:1,bank:1,tech:1}],["Bank or financial institution",{bank:3,fin:1}],["Own business or freelance",{biz:2,creative:2,fin:1}],["Remote or computer-based",{tech:2,creative:2}],["Courts or government offices",{law:3}],["Creative studio or media house",{creative:3}]]]];
+var qb=$("cx_q");
+Q.forEach(function(q,qi){var f=document.createElement("fieldset"),l=document.createElement("legend");l.textContent=q[0];f.appendChild(l);
+var w=el("div","qo");q[1].forEach(function(o,oi){var lb=el("label","opt"),cb=document.createElement("input");cb.type="checkbox";cb.dataset.q=qi;cb.dataset.o=oi;lb.appendChild(cb);lb.appendChild(el("span","",o[0]));w.appendChild(lb)});
+f.appendChild(w);qb.appendChild(f)});
+$("cx_qgo").onclick=function(){
+var sc={},why={},n=0,R=$("cx_qr");R.textContent="";
+qb.querySelectorAll("input:checked").forEach(function(cb){var o=Q[cb.dataset.q][1][cb.dataset.o];n++;
+for(var a in o[1]){sc[a]=(sc[a]||0)+o[1][a];(why[a]=why[a]||[]).push([o[0],o[1][a]])}});
+if(n<3){R.appendChild(el("div","ob","Pick at least 3 options across the questions to see areas that may match."));return}
+var list=AO.filter(function(a){return sc[a]>0}).sort(function(a,b){return sc[b]-sc[a]}).slice(0,3);
+var top=sc[list[0]];
+R.appendChild(el("h4","","Career areas that may match your interests"));
+list.forEach(function(a){var c=el("div","sc"),h=el("div","sh");h.appendChild(el("b","",AR[a]));
+h.appendChild(el("span","pl "+(sc[a]>=top*0.75?"done":""),sc[a]>=top*0.75?"Strong match":"Possible match"));c.appendChild(h);
+var rs=why[a].sort(function(x,y){return y[1]-x[1]}).slice(0,3).map(function(x){return x[0]});
+c.appendChild(el("p","pg","Because you chose: "+rs.join(", ")));
+var ch=el("div","chips");ch.style.marginTop="8px";C.filter(function(x){return x.a===a}).forEach(function(x){ch.appendChild(bt(x.n,"",function(){openRoad(x.id)}))});c.appendChild(ch);R.appendChild(c)});
+R.appendChild(el("p","note","Tap a career to open its roadmap. These are only suggestions to start exploring, not a final answer."))};
+$("cx_qrs").onclick=function(){qb.querySelectorAll("input").forEach(function(cb){cb.checked=false});$("cx_qr").textContent=""};
+
+/* skills */
+[["Communication","Explain one topic aloud every day."],["English","Read aloud or write 5 lines daily."],["Computer skills","Practise typing, documents and spreadsheets."],["Problem-solving","Break every problem into small steps."],["Time management","Plan tomorrow before you sleep."],["Critical thinking","Ask why, and check the source."],["Teamwork","Join group work and share tasks fairly."],["Digital skills","Use email, forms and online tools safely."]].forEach(function(s){
+var c=el("div","cc");c.appendChild(el("b","",s[0]));c.appendChild(el("span","",s[1]));$("cx_sk").appendChild(c)});
+
+/* my career plan */
+var PK="css_plan",plan={};
+try{var pv=JSON.parse(localStorage.getItem(PK)||"{}");if(pv&&typeof pv==="object"&&!Array.isArray(pv))plan=pv}catch(e){}
+["Select your class","Class 8","Class 9","Class 10","Class 11","Class 12","Graduation 1st year","Graduation 2nd year","Graduation 3rd year","Other"].forEach(function(t,i){var o=el("option","",t);o.value=i?t:"";$("pl_c").appendChild(o)});
+var F={pl_t:"t",pl_c:"c",pl_s:"s",pl_m:"m",pl_d:"d",pl_p:"p"};
+for(var k in F)if(plan[F[k]]!=null)$(k).value=plan[F[k]];
+function savePlan(){
+for(var k in F)plan[F[k]]=$(k).value;
+try{localStorage.setItem(PK,JSON.stringify(plan));$("pl_save").textContent="Saved on this device"}catch(e){$("pl_save").textContent="Could not save in this browser"}
+var p=+$("pl_p").value||0;$("pl_pv").textContent=p+"%";$("pl_bar").style.width=p+"%";
+var d=$("pl_d").value;$("pl_hint").textContent=d?(function(n){return n>0?n+" day"+(n>1?"s":"")+" left to your target date":n===0?"Your target date is today":"Your target date has passed. You can set a new one."})(dif(today(),d)):"";
+var sg=$("pl_sug");sg.textContent="";var t=$("pl_t").value.trim().toLowerCase(),c=C.filter(function(x){return x.n.toLowerCase()===t})[0];
+if(c){var l=el("small","","Milestone ideas: ");l.style.color="var(--mute)";sg.appendChild(l);c.ms.forEach(function(m){sg.appendChild(bt(m,"",function(){$("pl_m").value=m;savePlan()}))})}}
+["pl_t","pl_s","pl_m"].forEach(function(i){$(i).oninput=savePlan});["pl_c","pl_d","pl_p"].forEach(function(i){$(i).onchange=savePlan});$("pl_p").oninput=savePlan;
+$("pl_clr").onclick=function(){if(!confirm("Clear your career plan?"))return;for(var k in F)$(k).value=k==="pl_p"?"0":"";plan={};try{localStorage.removeItem(PK)}catch(e){}savePlan();try{localStorage.removeItem(PK)}catch(e){}$("pl_save").textContent="Plan cleared"};
+savePlan();drawStreams();
+})();
+</script>
+<script>
+if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){});});}
+</script>
+</body>
+</html>
